@@ -15,22 +15,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-      'https://drift-garage-delta.vercel.app',
-      'http://localhost:5173',
-      'http://localhost:3000'
-    ];
-    // Allow any Vercel subdomain or the specific ones in our list
-    if (!origin || allowedOrigins.indexOf(origin) !== -1 || origin.endsWith('.vercel.app')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: [/vercel\.app$/, /localhost:\d{4}$/],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
+  credentials: true,
+  optionsSuccessStatus: 200
 };
 
 app.use(cors(corsOptions));
