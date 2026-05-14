@@ -37,9 +37,8 @@ const Navbar = () => {
     <>
       <nav className="fixed top-0 w-full z-[60] bg-surface/90 backdrop-blur-xl border-b border-outline-variant h-20 md:h-24">
         <div className="flex justify-between items-center px-6 md:px-12 lg:px-24 h-full w-full max-w-7xl mx-auto">
-          {/* Brand */}
           <div className="flex items-center gap-12">
-            <Link to="/" className="text-2xl md:text-3xl font-black brand-logo tracking-tighter text-[#1f1f1f] hover:text-primary transition-colors uppercase italic">
+            <Link to="/" className="text-2xl md:text-3xl font-black brand-logo tracking-tighter text-on-background hover:text-primary transition-colors uppercase italic">
               Drift Garage
             </Link>
             
@@ -88,26 +87,71 @@ const Navbar = () => {
                     </button>
                     
                     {showDropdown && (
-                      <div className="absolute right-0 mt-4 w-72 bg-surface-container-lowest border border-outline-variant rounded-3xl py-4 shadow-2xl z-[70] animate-fade-in overflow-hidden">
-                        <div className="px-6 py-5 border-b border-outline-variant/30 mb-2 bg-surface-container-low/30">
-                          <p className="text-sm font-black text-[#1f1f1f] font-headline italic leading-none">{user.name}</p>
-                          <p className="text-[9px] text-primary uppercase tracking-[0.3em] font-black mt-2">{user.role}</p>
+                      <div className="absolute right-0 mt-5 w-80 bg-surface-container-lowest border border-outline-variant rounded-[32px] shadow-2xl z-[70] animate-fade-in overflow-hidden">
+                        {/* Dropdown Header: User Info */}
+                        <div className="px-8 py-7 bg-surface-container-low/40 border-b border-outline-variant/30">
+                          <p className="text-xs font-black text-on-background font-headline italic leading-none uppercase tracking-tight">{user.name}</p>
+                          <p className="text-[9px] text-on-surface-variant/50 uppercase tracking-[0.4em] font-black mt-3">Personnel ID: #{user._id.slice(-6).toUpperCase()}</p>
+                          <div className="mt-4 flex items-center gap-3">
+                             <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(74,124,89,0.3)]"></span>
+                             <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em]">{user.role} Access Level</span>
+                          </div>
                         </div>
-                        {user.role === 'admin' && (
+
+                        {/* Dropdown Menu Items */}
+                        <div className="py-3 px-3">
                           <Link 
-                            to="/admin" 
+                            to="/my-orders" 
                             onClick={() => setShowDropdown(false)}
-                            className="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all text-[11px] font-black uppercase tracking-widest font-label"
+                            className="flex items-center gap-5 px-6 py-4 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-2xl transition-all group/item"
                           >
-                            <span className="material-symbols-outlined text-[20px]">dashboard</span> Command Center
+                            <span className="material-symbols-outlined text-[22px] group-hover/item:scale-110 transition-transform">receipt_long</span>
+                            <div className="flex flex-col">
+                                <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">My Orders</span>
+                                <span className="text-[8px] font-medium text-on-surface-variant/40 uppercase tracking-widest mt-0.5">Deployment Registry</span>
+                            </div>
                           </Link>
-                        )}
-                        <button 
-                          onClick={handleLogout}
-                          className="w-full flex items-center gap-4 px-6 py-4 text-error hover:bg-error-container/10 transition-all text-[11px] font-black uppercase tracking-widest font-label"
-                        >
-                          <span className="material-symbols-outlined text-[20px]">logout</span> Terminate Session
-                        </button>
+
+                          <Link 
+                            to="/settings" 
+                            onClick={() => setShowDropdown(false)}
+                            className="flex items-center gap-5 px-6 py-4 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-2xl transition-all group/item"
+                          >
+                            <span className="material-symbols-outlined text-[22px] group-hover/item:scale-110 transition-transform">settings</span>
+                            <div className="flex flex-col">
+                                <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">Account Settings</span>
+                                <span className="text-[8px] font-medium text-on-surface-variant/40 uppercase tracking-widest mt-0.5">Security Protocol</span>
+                            </div>
+                          </Link>
+
+                          {user.role === 'admin' && (
+                            <Link 
+                              to="/admin" 
+                              onClick={() => setShowDropdown(false)}
+                              className="flex items-center gap-5 px-6 py-4 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-2xl transition-all group/item border border-transparent hover:border-primary/20"
+                            >
+                              <span className="material-symbols-outlined text-[22px] group-hover/item:scale-110 transition-transform">terminal</span>
+                              <div className="flex flex-col">
+                                  <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">Command Center</span>
+                                  <span className="text-[8px] font-medium text-primary/60 uppercase tracking-widest mt-0.5">Administrative Override</span>
+                              </div>
+                            </Link>
+                          )}
+                        </div>
+
+                        {/* Dropdown Footer: Logout */}
+                        <div className="px-3 pb-3 pt-1 border-t border-outline-variant/20">
+                          <button 
+                            onClick={handleLogout}
+                            className="w-full flex items-center gap-5 px-6 py-4 text-error hover:bg-error-container/10 rounded-2xl transition-all group/item"
+                          >
+                            <span className="material-symbols-outlined text-[22px] group-hover/item:translate-x-1 transition-transform">logout</span>
+                            <div className="flex flex-col text-left">
+                                <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">Terminate Session</span>
+                                <span className="text-[8px] font-medium text-error/40 uppercase tracking-widest mt-0.5">Secure Exit</span>
+                            </div>
+                          </button>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -139,7 +183,7 @@ const Navbar = () => {
           <aside className="fixed top-0 right-0 h-screen w-full sm:w-[400px] bg-background z-[110] shadow-2xl transition-transform duration-500 flex flex-col animate-slide-in-right md:hidden">
             {/* Header */}
             <div className="px-8 h-20 flex justify-between items-center border-b border-outline-variant bg-background">
-                <Link to="/" className="text-xl font-black text-[#1f1f1f] italic tracking-tighter brand-logo uppercase leading-none" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link to="/" className="text-xl font-black text-on-background italic tracking-tighter brand-logo uppercase leading-none" onClick={() => setIsMobileMenuOpen(false)}>
                   Drift Garage
                 </Link>
                 <button 
@@ -159,7 +203,7 @@ const Navbar = () => {
                         {user.avatar ? <img src={user.avatar} className="w-full h-full object-cover" /> : <span className="material-symbols-outlined text-[28px]">person</span>}
                     </div>
                     <div>
-                        <p className="text-base font-black text-[#1f1f1f] font-headline italic leading-none">{user.name}</p>
+                        <p className="text-base font-black text-on-background font-headline italic leading-none">{user.name}</p>
                         <p className="text-[10px] text-primary uppercase tracking-widest font-black mt-2">{user.role}</p>
                     </div>
                 </div>
@@ -174,12 +218,33 @@ const Navbar = () => {
                       key={link.path}
                       to={link.path}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-[#1f1f1f] uppercase tracking-[0.3em] font-label transition-all active:bg-primary active:text-on-primary"
+                      className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-on-background uppercase tracking-[0.3em] font-label transition-all active:bg-primary active:text-on-primary"
                     >
                       {link.name}
                       <span className="material-symbols-outlined text-[18px] opacity-20">east</span>
                     </Link>
                   ))}
+                  {user && (
+                    <>
+                      <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.5em] px-2 pt-6 font-label">Account</p>
+                      <Link 
+                        to="/my-orders" 
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-on-background uppercase tracking-[0.3em] font-label"
+                      >
+                        My Orders
+                        <span className="material-symbols-outlined text-[18px]">receipt_long</span>
+                      </Link>
+                      <Link 
+                        to="/settings" 
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-on-background uppercase tracking-[0.3em] font-label"
+                      >
+                        Account Settings
+                        <span className="material-symbols-outlined text-[18px]">settings</span>
+                      </Link>
+                    </>
+                  )}
                   {user?.role === 'admin' && (
                     <Link 
                       to="/admin" 

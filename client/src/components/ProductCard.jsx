@@ -52,24 +52,24 @@ const ProductCard = ({ product, isGarage, onRemove }) => {
   };
 
   return (
-    <Link to={`/product/${_id}`} className="group flex flex-col h-full bg-surface-container-lowest border border-outline-variant rounded-[32px] overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+    <Link to={`/product/${_id}`} className="group flex flex-col h-full bg-white border border-outline-variant rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
       {/* Image Container */}
-      <div className="relative aspect-[4/3] overflow-hidden bg-surface-container-low flex items-center justify-center p-10 group-hover:bg-white transition-colors duration-700">
+      <div className="relative aspect-[4/3] overflow-hidden bg-surface-container-low flex items-center justify-center p-6 sm:p-8 group-hover:bg-white transition-colors duration-700">
         <img 
           alt={name} 
-          className="w-full h-full object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-1000 ease-out" 
+          className="w-full h-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-1000 ease-out" 
           src={image}
         />
         
         {/* Badges Overlay */}
-        <div className="absolute top-6 left-6 z-10 flex flex-col gap-2.5">
+        <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
           {isFeatured && (
-            <span className="px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-[0.3em] shadow-sm bg-primary text-on-primary border border-primary-container">
+            <span className="px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] shadow-sm bg-primary text-on-primary border border-primary-container">
               Featured
             </span>
           )}
           {discountPrice > 0 && (
-            <span className="bg-error text-on-error px-4 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-[0.3em] border border-error-container shadow-sm">
+            <span className="bg-error text-on-error px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] border border-error-container shadow-sm">
               Sale
             </span>
           )}
@@ -79,45 +79,45 @@ const ProductCard = ({ product, isGarage, onRemove }) => {
         <button 
           onClick={handleWishlist}
           disabled={loading}
-          className={`absolute top-6 right-6 z-20 backdrop-blur-md border border-outline-variant p-3.5 rounded-2xl transition-all active:scale-90 shadow-sm ${isWishlisted ? 'text-error border-error-container bg-error/10' : 'bg-surface/40 text-on-surface-variant hover:text-error hover:bg-white hover:border-error-container'}`}
+          className={`absolute top-4 right-4 z-20 backdrop-blur-md border border-outline-variant p-2.5 rounded-xl transition-all active:scale-90 shadow-sm ${isWishlisted ? 'text-error border-error-container bg-error/10' : 'bg-surface/40 text-on-surface-variant hover:text-error hover:bg-white hover:border-error-container'}`}
         >
-          <span className={`material-symbols-outlined text-[22px] transition-all ${isWishlisted ? 'filled-icon' : ''}`}>
+          <span className={`material-symbols-outlined text-[18px] transition-all ${isWishlisted ? 'filled-icon' : ''}`}>
             {isGarage ? 'delete' : 'favorite'}
           </span>
         </button>
       </div>
 
       {/* Product Details */}
-      <div className="p-10 flex flex-col flex-grow bg-white">
-        <div className="mb-8 flex-grow">
-          <div className="flex items-center gap-3 mb-3">
-             <span className="h-[1px] w-6 bg-primary/30"></span>
-             <span className="text-[9px] uppercase tracking-[0.4em] font-black text-primary block font-label">{brand || 'Hotwheel'}</span>
+      <div className="p-6 sm:p-8 flex flex-col flex-grow bg-white">
+        <div className="mb-6 flex-grow">
+          <div className="flex items-center gap-2 mb-2">
+             <span className="h-[1px] w-4 bg-primary/30"></span>
+             <span className="text-[8px] uppercase tracking-[0.3em] font-black text-primary block font-label">{brand || 'Hotwheel'}</span>
           </div>
-          <h3 className="text-xl font-black text-[#1f1f1f] leading-tight font-headline italic tracking-tight group-hover:text-primary transition-colors line-clamp-2">{name}</h3>
+          <h3 className="text-lg font-black text-on-background leading-tight font-headline italic tracking-tight group-hover:text-primary transition-colors line-clamp-2 uppercase">{name}</h3>
         </div>
         
         {/* Divider */}
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent mb-8"></div>
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-outline-variant/30 to-transparent mb-6"></div>
         
-        {/* Pricing & Stock */}
-        <div className="flex items-end justify-between">
-          <div>
-            <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.3em] mb-2.5 font-label">
+        {/* Pricing & Stock Grid */}
+        <div className="grid grid-cols-2 gap-4 items-end">
+          <div className="flex flex-col gap-1">
+            <p className="text-[8px] font-black text-on-surface-variant/60 uppercase tracking-[0.2em] font-label">
               {discountPrice > 0 ? 'Offer Valuation' : 'Market Valuation'}
             </p>
-            <div className="flex items-baseline gap-3">
-              <p className="text-3xl font-black text-[#1f1f1f] italic tracking-tighter font-headline">₹{discountPrice > 0 ? discountPrice.toLocaleString() : price.toLocaleString()}</p>
+            <div className="flex flex-wrap items-baseline gap-2">
+              <p className="text-2xl font-black text-on-background italic tracking-tighter font-headline">₹{discountPrice > 0 ? discountPrice.toLocaleString() : price.toLocaleString()}</p>
               {discountPrice > 0 && (
-                <p className="text-sm text-on-surface-variant/40 line-through font-bold font-mono">₹{price.toLocaleString()}</p>
+                <p className="text-[10px] text-on-surface-variant/40 line-through font-bold font-mono">₹{price.toLocaleString()}</p>
               )}
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.3em] mb-2.5 font-label">Availability</p>
-            <div className={`flex items-center gap-3 px-4 py-2 rounded-xl border ${stock > 0 ? 'text-primary bg-primary/5 border-primary-container' : 'text-error bg-error/5 border-error-container'}`}>
-              <div className={`w-1.5 h-1.5 rounded-full ${stock > 0 ? 'bg-primary' : 'bg-error'}`}></div>
-              <span className="text-[9px] font-black uppercase tracking-[0.2em]">
+          <div className="flex flex-col gap-1 items-end">
+            <p className="text-[8px] font-black text-on-surface-variant/60 uppercase tracking-[0.2em] font-label">Availability</p>
+            <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border ${stock > 0 ? 'text-primary bg-primary/5 border-primary-container' : 'text-error bg-error/5 border-error-container'}`}>
+              <div className={`w-1 h-1 rounded-full ${stock > 0 ? 'bg-primary' : 'bg-error'}`}></div>
+              <span className="text-[8px] font-black uppercase tracking-[0.1em]">
                 {stock > 0 ? `${stock} Units` : 'Void'}
               </span>
             </div>

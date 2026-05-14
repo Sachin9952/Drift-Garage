@@ -63,11 +63,11 @@ const AdminUsers = () => {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="bg-surface-container border-b border-outline-variant/30">
-                  <th className="p-10 pl-12 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Personnel Identity</th>
-                  <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Comm Channel</th>
-                  <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Security Clearance</th>
-                  <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Commission Date</th>
-                  <th className="p-10 text-right pr-12 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Operations</th>
+                  <th className="p-10 pl-12 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Personnel Identity</th>
+                  <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Comm Channel</th>
+                  <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Security Clearance</th>
+                  <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Commission Date</th>
+                  <th className="p-10 text-right pr-12 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Operations</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/20">
@@ -78,10 +78,10 @@ const AdminUsers = () => {
                         <div className="w-16 h-16 rounded-2xl bg-surface-container border border-outline-variant flex items-center justify-center text-on-surface-variant/40 group-hover:text-primary group-hover:bg-white group-hover:border-primary-container transition-all shadow-sm">
                           <span className="material-symbols-outlined text-[28px]">person_filled</span>
                         </div>
-                        <span className="text-xl font-black text-[#1f1f1f] italic tracking-tight uppercase group-hover:text-primary transition-colors font-headline leading-tight">{user.name}</span>
+                        <span className="text-xl font-black text-on-background italic tracking-tight uppercase group-hover:text-primary transition-colors font-headline leading-tight">{user.name}</span>
                       </div>
                     </td>
-                    <td className="p-10 font-mono text-sm text-on-surface-variant/70 lowercase tracking-tight group-hover:text-[#1f1f1f] transition-colors">{user.email}</td>
+                    <td className="p-10 font-mono text-sm text-on-surface-variant/70 lowercase tracking-tight group-hover:text-on-background transition-colors">{user.email}</td>
                     <td className="p-10">
                       <span className={`px-6 py-2.5 rounded-xl font-black text-[10px] uppercase tracking-[0.3em] border font-label ${
                         user.role === 'admin' 

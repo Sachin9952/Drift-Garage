@@ -7,7 +7,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const { data } = await API.get('/admin/orders');
+      const { data } = await API.get('/orders/admin/all');
       setOrders(data);
     } catch (err) {
       console.error(err);
@@ -22,7 +22,7 @@ const AdminOrders = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await API.put(`/admin/orders/${id}/status`, { orderStatus: status });
+      await API.put(`/orders/admin/${id}/status`, { status: status });
       fetchOrders();
     } catch (err) {
       alert('Failed to update order status');
@@ -54,11 +54,11 @@ const AdminOrders = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container border-b border-outline-variant/30">
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Order Manifest</th>
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Collector Identity</th>
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Net Valuation</th>
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Transit Status</th>
-                <th className="p-10 text-right pr-12 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Operations</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Order Manifest</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Collector Identity</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Net Valuation</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Transit Status</th>
+                <th className="p-10 text-right pr-12 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Operations</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/20">
@@ -76,13 +76,13 @@ const AdminOrders = () => {
                           <span className="material-symbols-outlined text-[28px]">person_outline</span>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <span className="text-base font-black text-[#1f1f1f] uppercase tracking-wider leading-none font-headline italic">{order.user?.name}</span>
+                        <span className="text-base font-black text-on-background uppercase tracking-wider leading-none font-headline italic">{order.user?.name}</span>
                         <span className="text-[10px] font-black text-on-surface-variant/40 lowercase tracking-tight font-mono">{order.user?.email}</span>
                       </div>
                     </div>
                   </td>
                   <td className="p-10">
-                      <span className="text-2xl font-black text-[#1f1f1f] italic tracking-tighter font-headline">₹{order.totalAmount.toLocaleString()}</span>
+                      <span className="text-2xl font-black text-on-background italic tracking-tighter font-headline">₹{order.totalAmount.toLocaleString()}</span>
                   </td>
                   <td className="p-10">
                     <div className="flex items-center gap-4">

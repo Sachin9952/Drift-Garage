@@ -79,7 +79,7 @@ const Login = () => {
             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
             
             <div className="flex border-b border-outline-variant/30 mb-12">
-              <button className="flex-1 pb-5 text-center border-b-2 border-primary text-[#1f1f1f] font-black text-[10px] uppercase tracking-[0.3em] transition-all font-label">
+              <button className="flex-1 pb-5 text-center border-b-2 border-primary text-on-background font-black text-[10px] uppercase tracking-[0.3em] transition-all font-label">
                 Sign In
               </button>
               <Link to="/signup" className="flex-1 pb-5 text-center border-b-2 border-transparent text-on-surface-variant/40 hover:text-primary font-black text-[10px] uppercase tracking-[0.3em] transition-all font-label">
@@ -96,11 +96,11 @@ const Login = () => {
 
             <form className="space-y-8" onSubmit={handleSubmit}>
               <div className="space-y-4 group/input">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="email">Operator ID</label>
+                <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="email">Operator ID</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within/input:text-primary transition-colors text-[20px]">alternate_email</span>
                   <input 
-                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-5 pl-14 pr-6 text-[#1f1f1f] text-sm font-bold focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-headline italic" 
+                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-5 pl-14 pr-6 text-on-background text-sm font-bold focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-headline italic" 
                     id="email" 
                     placeholder="EMAIL@DOMAIN.COM" 
                     type="email"
@@ -112,13 +112,13 @@ const Login = () => {
               </div>
               <div className="space-y-4 group/input">
                 <div className="flex justify-between items-center px-2">
-                  <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] group-focus-within/input:text-primary transition-colors font-label" htmlFor="password">Security Key</label>
+                  <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] group-focus-within/input:text-primary transition-colors font-label" htmlFor="password">Security Key</label>
                   <a className="text-[9px] font-black text-primary/60 hover:text-primary transition-colors uppercase tracking-[0.3em] font-label" href="#">Lost Key?</a>
                 </div>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within/input:text-primary transition-colors text-[20px]">lock</span>
                   <input 
-                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-5 pl-14 pr-6 text-[#1f1f1f] text-sm font-black focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-mono italic" 
+                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-5 pl-14 pr-6 text-on-background text-sm font-black focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-mono italic" 
                     id="password" 
                     placeholder="••••••••" 
                     type="password"

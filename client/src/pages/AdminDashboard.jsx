@@ -28,7 +28,7 @@ const AdminDashboard = () => {
     <div className="flex h-screen overflow-hidden bg-background font-body">
       {/* Mobile Top Bar */}
       <header className="md:hidden fixed top-0 left-0 w-full h-20 bg-surface-container/90 backdrop-blur-md border-b border-outline-variant z-[60] flex items-center justify-between px-6 shadow-sm">
-        <Link to="/" className="text-xl font-black text-[#1f1f1f] italic tracking-tighter brand-logo uppercase">
+        <Link to="/" className="text-xl font-black text-on-background italic tracking-tighter brand-logo uppercase">
           DRIFT GARAGE
         </Link>
         <button 
@@ -53,7 +53,7 @@ const AdminDashboard = () => {
           >
             <div className="p-8 border-b border-outline-variant">
               <div className="flex items-center justify-between mb-10">
-                <Link to="/" className="text-xl font-black text-[#1f1f1f] italic tracking-tighter brand-logo uppercase" onClick={() => setIsMobileMenuOpen(false)}>
+                <Link to="/" className="text-xl font-black text-on-background italic tracking-tighter brand-logo uppercase" onClick={() => setIsMobileMenuOpen(false)}>
                   DRIFT GARAGE
                 </Link>
                 <button 
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
                   <span className="material-symbols-outlined text-[20px]">person</span>
                 </div>
                 <div className="overflow-hidden">
-                  <div className="text-sm font-black text-[#1f1f1f] font-headline italic line-clamp-1 leading-none">{user?.name}</div>
+                  <div className="text-sm font-black text-on-background font-headline italic line-clamp-1 leading-none">{user?.name}</div>
                   <div className="text-[9px] font-black text-primary uppercase tracking-widest mt-2">Authorized Admin</div>
                 </div>
               </div>
@@ -113,7 +113,7 @@ const AdminDashboard = () => {
       {/* SideNavBar (Desktop) */}
       <aside className="hidden md:flex h-full w-72 flex-col bg-surface-container border-r border-outline-variant relative z-40">
         <div className="p-10">
-          <Link to="/" className="text-3xl font-black text-[#1f1f1f] italic tracking-tighter brand-logo mb-12 block leading-none uppercase">
+          <Link to="/" className="text-3xl font-black text-on-background italic tracking-tighter brand-logo mb-12 block leading-none uppercase">
             DRIFT GARAGE
           </Link>
           
@@ -122,7 +122,7 @@ const AdminDashboard = () => {
               <span className="material-symbols-outlined text-[24px]">person_filled</span>
             </div>
             <div className="overflow-hidden">
-              <div className="text-sm font-black text-[#1f1f1f] font-headline italic line-clamp-1">{user?.name}</div>
+              <div className="text-sm font-black text-on-background font-headline italic line-clamp-1">{user?.name}</div>
               <div className="text-[10px] font-black text-primary uppercase tracking-[0.2em] mt-1">Authorized Admin</div>
             </div>
           </div>
@@ -190,7 +190,7 @@ const StatsView = () => {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-16">
         <div>
           <span className="text-[10px] font-black text-primary uppercase tracking-[0.5em] mb-4 block font-label">System Protocol: Active</span>
-          <h1 className="text-4xl md:text-5xl font-black text-[#1f1f1f] italic tracking-tighter brand-logo leading-none uppercase">Command Center</h1>
+          <h1 className="text-4xl md:text-5xl font-black text-on-background italic tracking-tighter brand-logo leading-none uppercase">Command Center</h1>
         </div>
         <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl px-8 py-5 flex items-center gap-6 shadow-sm w-full md:w-auto">
             <div className="flex -space-x-3">
@@ -217,7 +217,7 @@ const StatsView = () => {
           </div>
           <div>
             <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-2 font-label">Total Net Yield</p>
-            <p className="text-3xl font-black text-[#1f1f1f] italic tracking-tighter font-headline">₹12,89,450</p>
+            <p className="text-3xl font-black text-on-background italic tracking-tighter font-headline">₹12,89,450</p>
           </div>
         </div>
 
@@ -230,7 +230,7 @@ const StatsView = () => {
           </div>
           <div>
             <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-2 font-label">Total Acquisitions</p>
-            <p className="text-3xl font-black text-[#1f1f1f] italic tracking-tighter font-headline">2,482</p>
+            <p className="text-3xl font-black text-on-background italic tracking-tighter font-headline">2,482</p>
           </div>
         </div>
 
@@ -243,7 +243,7 @@ const StatsView = () => {
           </div>
           <div>
             <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] mb-2 font-label">Commissioned Ops</p>
-            <p className="text-3xl font-black text-[#1f1f1f] italic tracking-tighter font-headline">842</p>
+            <p className="text-3xl font-black text-on-background italic tracking-tighter font-headline">842</p>
           </div>
         </div>
 
@@ -266,7 +266,7 @@ const StatsView = () => {
                 <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary border border-primary-container">
                   <span className="material-symbols-outlined text-[24px]">terminal</span>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-black text-[#1f1f1f] italic tracking-tight uppercase font-headline">Terminal Feed</h3>
+                <h3 className="text-2xl md:text-3xl font-black text-on-background italic tracking-tight uppercase font-headline">Terminal Feed</h3>
               </div>
               <button className="text-[10px] font-black text-primary hover:text-on-surface uppercase tracking-[0.4em] transition-colors font-label underline underline-offset-[10px]">Expand System Logs</button>
           </div>
@@ -277,7 +277,7 @@ const StatsView = () => {
                         <div className="w-2.5 h-2.5 rounded-full bg-primary shadow-sm group-hover/item:animate-pulse"></div>
                         <span className="text-xs font-black text-on-surface-variant/40 font-mono tracking-tighter">{log.time}</span>
                       </div>
-                      <span className="text-base font-bold text-[#1f1f1f] flex-grow leading-relaxed font-headline italic">{log.msg}</span>
+                      <span className="text-base font-bold text-on-background flex-grow leading-relaxed font-headline italic">{log.msg}</span>
                       <div className="flex items-center">
                         <span className="text-[9px] font-black text-primary uppercase tracking-[0.4em] bg-primary/5 px-6 py-2.5 rounded-xl border border-primary-container shadow-inner">
                           {log.status}

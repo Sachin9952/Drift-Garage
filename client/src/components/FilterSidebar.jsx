@@ -19,7 +19,7 @@ const FilterSidebar = ({
 
   return (
     <aside className="w-full space-y-12 animate-fade-in">
-      <div className="bg-surface-container-lowest border border-outline-variant rounded-3xl p-8 shadow-sm relative overflow-hidden group">
+      <div className="bg-white border border-outline-variant rounded-[32px] p-8 shadow-sm relative overflow-hidden group">
         {/* Subtle decorative background */}
         <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-primary/20 to-transparent"></div>
 
@@ -34,9 +34,9 @@ const FilterSidebar = ({
         </div>
         
         {/* Filter Group: Brand */}
-        <div className="mb-10 border-b border-outline-variant/30 pb-10 relative z-10">
-          <h3 className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] mb-6 font-label">Manufacturing Origin</h3>
-          <div className="space-y-4 max-h-72 overflow-y-auto custom-scrollbar pr-4">
+        <div className="mb-10 border-b border-outline-variant pb-10 relative z-10">
+          <h3 className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-[0.4em] mb-6 font-label">Manufacturing Origin</h3>
+          <div className="space-y-4 max-h-40 sm:max-h-72 overflow-y-auto custom-scrollbar pr-4">
             {brands.length > 0 ? brands.map((brand) => (
               <label key={brand} className="flex items-center gap-4 cursor-pointer group/label">
                 <div 

@@ -99,7 +99,7 @@ const Checkout = () => {
         <div className="lg:col-span-7 xl:col-span-8 flex flex-col gap-10 relative z-10">
           {/* Header */}
           <div className="animate-fade-in-up">
-            <h1 className="text-4xl md:text-5xl font-black text-[#1f1f1f] tracking-tighter italic brand-logo mb-3 uppercase leading-none">Final Clearance</h1>
+            <h1 className="text-4xl md:text-5xl font-black text-on-background tracking-tighter italic brand-logo mb-3 uppercase leading-none">Final Clearance</h1>
             <p className="text-on-surface-variant font-medium text-lg">Please provide your shipping destination and payment credentials.</p>
           </div>
 
@@ -131,69 +131,69 @@ const Checkout = () => {
               <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary border border-primary-container">
                 <span className="material-symbols-outlined text-xl">local_shipping</span>
               </div>
-              <h2 className="text-xl md:text-2xl font-black text-[#1f1f1f] italic tracking-tight uppercase font-headline">Shipping Protocol</h2>
+              <h2 className="text-xl md:text-2xl font-black text-on-background italic tracking-tight uppercase font-headline">Shipping Protocol</h2>
             </div>
             
             <form id="checkout-form" onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 md:gap-y-8">
               <div className="space-y-2.5 md:col-span-2 group/input">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Full Name</label>
+                <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Full Name</label>
                 <div className="relative">
                   <input 
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleChange}
                     required
-                    className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-[#1f1f1f] text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
+                    className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-on-background text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
                     placeholder="ACQUISITION SPECIALIST NAME" 
                     type="text" 
                   />
                 </div>
               </div>
               <div className="space-y-2.5 md:col-span-2 group/input">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Deployment Address</label>
+                <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Deployment Address</label>
                 <input 
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
                   required
-                  className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-[#1f1f1f] text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
+                  className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-on-background text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
                   placeholder="STREET NAME, HANGAR NO." 
                   type="text" 
                 />
               </div>
-              <div className="space-y-2.5 group/input">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">City</label>
-                <input 
-                  name="city"
-                  value={formData.city}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-[#1f1f1f] text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
-                  placeholder="METROPOLIS" 
-                  type="text" 
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="space-y-2.5 group/input">
-                  <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Postal Code</label>
+                  <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">City</label>
+                  <input 
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-on-background text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
+                    placeholder="METROPOLIS" 
+                    type="text" 
+                  />
+                </div>
+                <div className="space-y-2.5 group/input">
+                  <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Postal Code</label>
                   <input 
                     name="postalCode"
                     value={formData.postalCode}
                     onChange={handleChange}
                     required
-                    className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-[#1f1f1f] text-sm font-black focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-mono italic" 
+                    className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-on-background text-sm font-black focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-mono italic" 
                     placeholder="000 000" 
                     type="text" 
                   />
                 </div>
                 <div className="space-y-2.5 group/input">
-                  <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Sector</label>
+                  <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Country</label>
                   <input 
                     name="country"
                     value={formData.country}
                     onChange={handleChange}
                     required
-                    className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-[#1f1f1f] text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
+                    className="w-full bg-surface-container border border-outline-variant/60 rounded-2xl px-6 py-4 text-on-background text-sm font-bold focus:border-primary focus:bg-white outline-none transition-all placeholder:text-on-surface-variant/40 font-headline italic" 
                     placeholder="INDIA" 
                     type="text" 
                   />
@@ -201,7 +201,7 @@ const Checkout = () => {
               </div>
               
               <div className="space-y-6 md:col-span-2 mt-4">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 font-label">Payment Gateway</label>
+                <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 font-label">Payment Gateway</label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <label className={`flex items-center gap-5 cursor-pointer bg-surface-container px-6 py-5 rounded-[24px] border transition-all group/radio ${formData.paymentMethod === 'PayPal' ? 'border-primary bg-primary/5 shadow-sm' : 'border-outline-variant hover:border-primary/40 hover:bg-white shadow-inner'}`}>
                     <input 
@@ -213,7 +213,7 @@ const Checkout = () => {
                       className="accent-primary w-5 h-5"
                     />
                     <div className="flex flex-col">
-                        <span className="text-[#1f1f1f] font-black text-sm font-headline italic">PayPal</span>
+                        <span className="text-on-background font-black text-sm font-headline italic">PayPal</span>
                         <span className="text-[9px] text-on-surface-variant font-black tracking-widest mt-0.5">Secure Protocol</span>
                     </div>
                   </label>
@@ -227,7 +227,7 @@ const Checkout = () => {
                       className="accent-primary w-5 h-5"
                     />
                     <div className="flex flex-col">
-                        <span className="text-[#1f1f1f] font-black text-sm font-headline italic">Stripe</span>
+                        <span className="text-on-background font-black text-sm font-headline italic">Stripe</span>
                         <span className="text-[9px] text-on-surface-variant font-black tracking-widest mt-0.5">Direct Credit</span>
                     </div>
                   </label>
@@ -259,7 +259,7 @@ const Checkout = () => {
           <div className="bg-surface-container border border-outline-variant rounded-[48px] p-10 md:p-12 shadow-sm flex flex-col gap-10 overflow-hidden relative group">
             <div className="absolute top-0 left-0 w-full h-1.5 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
             
-            <h3 className="text-2xl font-black text-[#1f1f1f] italic tracking-tight border-b border-outline-variant/20 pb-8 font-headline uppercase">Acquisition Recap</h3>
+            <h3 className="text-2xl font-black text-on-background italic tracking-tight border-b border-outline-variant/20 pb-8 font-headline uppercase">Acquisition Recap</h3>
             <div className="flex flex-col gap-6 max-h-[360px] overflow-y-auto custom-scrollbar pr-4">
               {cartItems.map(item => (
                 <div key={item.product._id} className="flex gap-6 items-center group/item">
@@ -271,10 +271,10 @@ const Checkout = () => {
                     />
                   </div>
                   <div className="flex-grow">
-                    <h4 className="text-base font-black text-[#1f1f1f] italic tracking-tight font-headline line-clamp-1">{item.product.name}</h4>
+                    <h4 className="text-base font-black text-on-background italic tracking-tight font-headline line-clamp-1">{item.product.name}</h4>
                     <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest mt-1.5 block">Qty: {item.quantity}</span>
                   </div>
-                  <span className="text-base font-black text-[#1f1f1f] italic tracking-tighter font-headline">₹{((item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price) * item.quantity).toLocaleString()}</span>
+                  <span className="text-base font-black text-on-background italic tracking-tighter font-headline">₹{((item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price) * item.quantity).toLocaleString()}</span>
                 </div>
               ))}
             </div>
@@ -282,20 +282,20 @@ const Checkout = () => {
             <div className="flex flex-col gap-5 pt-10 border-t border-outline-variant/20">
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Net Unit Value</span>
-                <span className="text-base font-black text-[#1f1f1f] italic tracking-tight font-headline">₹{subtotal.toLocaleString()}</span>
+                <span className="text-base font-black text-on-background italic tracking-tight font-headline">₹{subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Deployment Fee</span>
-                <span className="text-base font-black text-[#1f1f1f] italic tracking-tight font-headline">₹{shipping.toLocaleString()}</span>
+                <span className="text-base font-black text-on-background italic tracking-tight font-headline">₹{shipping.toLocaleString()}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Security Tax (GST)</span>
-                <span className="text-base font-black text-[#1f1f1f] italic tracking-tight font-headline">₹{tax.toLocaleString()}</span>
+                <span className="text-base font-black text-on-background italic tracking-tight font-headline">₹{tax.toLocaleString()}</span>
               </div>
             </div>
             
             <div className="flex justify-between items-center pt-10 border-t border-outline-variant relative z-10">
-              <span className="text-xs font-black text-[#1f1f1f] uppercase tracking-[0.3em]">Total Clearance</span>
+              <span className="text-xs font-black text-on-background uppercase tracking-[0.3em]">Total Clearance</span>
               <span className="text-3xl font-black text-primary italic tracking-tighter font-headline drop-shadow-sm">₹{total.toLocaleString()}</span>
             </div>
             

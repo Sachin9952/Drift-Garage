@@ -46,7 +46,7 @@ const Home = () => {
         <div className="relative z-20 w-full px-6 md:px-12 lg:px-24 mx-auto max-w-7xl">
           <div className="max-w-2xl pt-24">
             {/* Main Headline */}
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-headline font-black leading-[1] tracking-tighter mb-10 text-[#1f1f1f] animate-fade-in-up uppercase italic">
+            <h1 className="text-6xl md:text-7xl lg:text-8xl font-headline font-black leading-[1] tracking-tighter mb-10 text-on-background animate-fade-in-up uppercase italic">
               Collect Speed.<br/>
               <span className="text-primary">Own Legends.</span>
             </h1>
@@ -62,7 +62,7 @@ const Home = () => {
                 <span className="material-symbols-outlined text-[20px] group-hover:translate-x-2 transition-transform">arrow_forward</span>
               </Link>
               {/* Secondary CTA */}
-              <Link to="/shop" className="bg-surface-container-lowest border border-outline-variant text-[#1f1f1f] px-12 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.4em] flex items-center justify-center hover:bg-white transition-all shadow-sm active:scale-[0.98]">
+              <Link to="/shop" className="bg-surface-container-lowest border border-outline-variant text-on-background px-12 py-5 rounded-2xl font-black text-[11px] uppercase tracking-[0.4em] flex items-center justify-center hover:bg-white transition-all shadow-sm active:scale-[0.98]">
                 New Arrivals
               </Link>
             </div>
@@ -78,7 +78,7 @@ const Home = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 relative z-10">
           <div>
             <span className="text-[10px] font-black text-primary uppercase tracking-[0.5em] mb-4 block font-label">The Showroom</span>
-            <h2 className="text-5xl md:text-6xl font-headline font-black tracking-tighter text-[#1f1f1f] italic uppercase leading-none">Featured Grails</h2>
+            <h2 className="text-5xl md:text-6xl font-headline font-black tracking-tighter text-on-background italic uppercase leading-none">Featured Grails</h2>
           </div>
           <div className="mt-10 md:mt-0">
             <Link to="/shop" className="inline-flex items-center gap-4 text-[10px] font-black text-primary hover:text-on-surface transition-all group font-label uppercase tracking-[0.3em] underline underline-offset-[10px]">
@@ -116,21 +116,21 @@ const Home = () => {
             <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-2 group-hover:bg-primary group-hover:text-on-primary transition-all duration-700 mx-auto md:mx-0 shadow-sm border border-primary-container">
               <span className="material-symbols-outlined text-3xl">verified</span>
             </div>
-            <h3 className="text-3xl font-headline font-black text-[#1f1f1f] italic uppercase leading-none tracking-tight">Authenticated</h3>
+            <h3 className="text-3xl font-headline font-black text-on-background italic uppercase leading-none tracking-tight">Authenticated</h3>
             <p className="text-on-surface-variant text-lg leading-relaxed font-medium">Every model is rigorously inspected for original integrity and pristine showroom condition.</p>
           </div>
           <div className="flex flex-col gap-8 text-center md:text-left group animate-fade-in-up delay-100">
             <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-2 group-hover:bg-primary group-hover:text-on-primary transition-all duration-700 mx-auto md:mx-0 shadow-sm border border-primary-container">
               <span className="material-symbols-outlined text-3xl">local_shipping</span>
             </div>
-            <h3 className="text-3xl font-headline font-black text-[#1f1f1f] italic uppercase leading-none tracking-tight">Secure Transit</h3>
+            <h3 className="text-3xl font-headline font-black text-on-background italic uppercase leading-none tracking-tight">Secure Transit</h3>
             <p className="text-on-surface-variant text-lg leading-relaxed font-medium">Reinforced strategic packaging ensures zero-impact delivery to your personal vault.</p>
           </div>
           <div className="flex flex-col gap-8 text-center md:text-left group animate-fade-in-up delay-200">
             <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center text-primary mb-2 group-hover:bg-primary group-hover:text-on-primary transition-all duration-700 mx-auto md:mx-0 shadow-sm border border-primary-container">
               <span className="material-symbols-outlined text-3xl">distance</span>
             </div>
-            <h3 className="text-3xl font-headline font-black text-[#1f1f1f] italic uppercase leading-none tracking-tight">Global Grid</h3>
+            <h3 className="text-3xl font-headline font-black text-on-background italic uppercase leading-none tracking-tight">Global Grid</h3>
             <p className="text-on-surface-variant text-lg leading-relaxed font-medium">Coordinating elite deliveries to legendary collectors across the entire global network.</p>
           </div>
         </div>

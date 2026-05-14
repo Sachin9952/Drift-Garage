@@ -61,11 +61,11 @@ const AdminProducts = () => {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-surface-container border-b border-outline-variant/30">
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Product Information</th>
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Category</th>
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Net Valuation</th>
-                <th className="p-10 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Hangar Status</th>
-                <th className="p-10 text-right pr-12 text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] font-label">Actions</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Product Information</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Category</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Net Valuation</th>
+                <th className="p-10 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Hangar Status</th>
+                <th className="p-10 text-right pr-12 text-[10px] font-black text-on-background uppercase tracking-[0.4em] font-label">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/20">
@@ -81,7 +81,7 @@ const AdminProducts = () => {
                           />
                         </div>
                         <div>
-                            <span className="text-xl font-black text-[#1f1f1f] italic tracking-tight block group-hover:text-primary transition-colors font-headline leading-tight">{product.name}</span>
+                            <span className="text-xl font-black text-on-background italic tracking-tight block group-hover:text-primary transition-colors font-headline leading-tight">{product.name}</span>
                             <span className="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-[0.2em] mt-3 block font-mono">ID: {product._id.slice(-8).toUpperCase()}</span>
                         </div>
                     </div>
@@ -90,7 +90,7 @@ const AdminProducts = () => {
                       <span className="text-[10px] font-black text-primary border border-primary-container bg-primary/5 px-6 py-2.5 rounded-xl uppercase tracking-[0.2em] font-label">{product.category}</span>
                   </td>
                   <td className="p-10">
-                      <span className="text-2xl font-black text-[#1f1f1f] italic tracking-tighter font-headline">₹{product.price.toLocaleString()}</span>
+                      <span className="text-2xl font-black text-on-background italic tracking-tighter font-headline">₹{product.price.toLocaleString()}</span>
                   </td>
                   <td className="p-10">
                     <div className="flex flex-col gap-4">

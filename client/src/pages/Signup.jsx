@@ -79,7 +79,7 @@ const Signup = () => {
               <Link to="/login" className="flex-1 pb-5 text-center border-b-2 border-transparent text-on-surface-variant/40 hover:text-primary font-black text-[10px] uppercase tracking-[0.3em] transition-all font-label">
                 Sign In
               </Link>
-              <button className="flex-1 pb-5 text-center border-b-2 border-primary text-[#1f1f1f] font-black text-[10px] uppercase tracking-[0.3em] transition-all font-label">
+              <button className="flex-1 pb-5 text-center border-b-2 border-primary text-on-background font-black text-[10px] uppercase tracking-[0.3em] transition-all font-label">
                 Register
               </button>
             </div>
@@ -93,11 +93,11 @@ const Signup = () => {
 
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-3 group/input">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="name">Operator Name</label>
+                <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="name">Operator Name</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within/input:text-primary transition-colors text-[20px]">person</span>
                   <input 
-                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-4 pl-14 pr-6 text-[#1f1f1f] text-sm font-bold focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-headline italic" 
+                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-4 pl-14 pr-6 text-on-background text-sm font-bold focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-headline italic" 
                     id="name" 
                     placeholder="FULL NAME" 
                     type="text"
@@ -108,11 +108,11 @@ const Signup = () => {
                 </div>
               </div>
               <div className="space-y-3 group/input">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="email">Comm Channel</label>
+                <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="email">Comm Channel</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within/input:text-primary transition-colors text-[20px]">alternate_email</span>
                   <input 
-                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-4 pl-14 pr-6 text-[#1f1f1f] text-sm font-bold focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-headline italic" 
+                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-4 pl-14 pr-6 text-on-background text-sm font-bold focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-headline italic" 
                     id="email" 
                     placeholder="EMAIL@DOMAIN.COM" 
                     type="email"
@@ -123,11 +123,11 @@ const Signup = () => {
                 </div>
               </div>
               <div className="space-y-3 group/input">
-                <label className="text-[10px] font-black text-[#1f1f1f] uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="password">Security Key</label>
+                <label className="text-[10px] font-black text-on-background uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label" htmlFor="password">Security Key</label>
                 <div className="relative">
                   <span className="material-symbols-outlined absolute left-6 top-1/2 -translate-y-1/2 text-on-surface-variant/40 group-focus-within/input:text-primary transition-colors text-[20px]">lock</span>
                   <input 
-                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-4 pl-14 pr-6 text-[#1f1f1f] text-sm font-black focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-mono italic" 
+                    className="w-full bg-surface-container border border-outline-variant rounded-2xl py-4 pl-14 pr-6 text-on-background text-sm font-black focus:outline-none focus:border-primary-container focus:bg-white transition-all placeholder:text-on-surface-variant/20 font-mono italic" 
                     id="password" 
                     placeholder="••••••••" 
                     type="password"

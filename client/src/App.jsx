@@ -10,6 +10,8 @@ import Wishlist from './pages/Wishlist';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
+import MyOrders from './pages/MyOrders';
+import AccountSettings from './pages/AccountSettings';
 
 
 import { AuthProvider } from './context/AuthContext';
@@ -50,6 +52,22 @@ function App() {
               } 
             />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route 
+              path="/my-orders" 
+              element={
+                <ProtectedRoute>
+                  <MyOrders />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/settings" 
+              element={
+                <ProtectedRoute>
+                  <AccountSettings />
+                </ProtectedRoute>
+              } 
+            />
           </Route>
         </Routes>
       </Router>

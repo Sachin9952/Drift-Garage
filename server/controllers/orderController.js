@@ -32,7 +32,7 @@ const addOrderItems = async (req, res) => {
 // @route   GET /api/orders/my-orders
 // @access  Private
 const getMyOrders = async (req, res) => {
-  const orders = await Order.find({ user: req.user._id });
+  const orders = await Order.find({ user: req.user._id }).populate('items.product');
   res.json(orders);
 };
 
