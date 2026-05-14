@@ -17,11 +17,7 @@ const PORT = process.env.PORT || 5000;
 // Manual CORS Middleware
 app.use((req, res, next) => {
   const origin = req.headers.origin;
-  if (origin && (
-    origin.endsWith('.vercel.app') || 
-    origin.includes('localhost') || 
-    origin === 'https://drift-garage-80dtk09a2-drift-garage-s-projects.vercel.app'
-  )) {
+  if (origin) {
     res.setHeader('Access-Control-Allow-Origin', origin);
   }
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
