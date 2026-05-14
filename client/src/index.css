@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  /* Terra Light Design System Tokens */
+  --color-background: #faf6f0;
+  --color-on-background: #2e3230;
+  
+  --color-surface: #faf6f0;
+  --color-on-surface: #2e3230;
+  --color-surface-container: #f0ece4;
+  --color-surface-container-low: #f5f1ea;
+  --color-surface-container-high: #eae6de;
+  --color-surface-container-highest: #e4e0d8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-variant: #e4e0d8;
+  --color-on-surface-variant: #4a4e4a;
+  
+  --color-primary: #4a7c59; /* Sage Green */
+  --color-on-primary: #ffffff;
+  --color-primary-container: #78a886;
+  --color-on-primary-container: #d8f0de;
+  
+  --color-secondary: #6b6358;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #f0e8db;
+  --color-on-secondary-container: #5e5548;
+  
+  --color-tertiary: #705c30;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #c4a66a;
+  --color-on-tertiary-container: #554020;
+  
+  --color-error: #b83230;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad8;
+  --color-on-error-container: #690005;
+  
+  --color-outline: #74796e;
+  --color-outline-variant: #c4c8bc;
+  
+  /* Legacy Drift Garage Specifics (Keeping for compatibility but will migrate) */
+  --color-drift-dark: #faf6f0;
+  --color-drift-surface: #f0ece4;
+  --color-drift-accent: #4a7c59;
+  --color-drift-accent-hover: #78a886;
+
+  /* Fonts */
+  --font-headline: "Literata", serif;
+  --font-display: "Literata", serif;
+  --font-body: "Nunito Sans", sans-serif;
+  --font-label: "Nunito Sans", sans-serif;
+  --font-sans: "Nunito Sans", sans-serif;
+
+  --spacing-margin-desktop: 64px;
+  --spacing-margin-mobile: 16px;
+  --spacing-gutter: 24px;
+  --spacing-unit: 4px;
+  --spacing-container-max: 1280px;
+
+  --radius-round-twelve: 0.75rem;
+  --radius-xl: 1.5rem;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-background font-body antialiased;
+  }
+}
+
+/* Animations */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes shake {
+  10page-10, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+
+/* Terra Specific Components */
+.terra-card {
+  @apply bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden transition-all duration-300;
+}
+
+.terra-card:hover {
+  @apply -translate-y-2 border-outline shadow-xl;
+}
+
+.btn-terra-primary {
+  @apply bg-primary text-on-primary font-label font-semibold py-4 px-8 rounded-round-twelve transition-all duration-300 hover:bg-primary-container hover:text-on-primary-container hover:-translate-y-0.5 shadow-md;
+}
+
+.btn-terra-secondary {
+  @apply bg-surface text-on-surface font-label font-medium py-4 px-8 rounded-round-twelve border border-outline transition-all duration-300 hover:bg-surface-variant shadow-sm;
+}
+
+.brand-logo {
+  @apply font-headline italic font-black;
+  letter-spacing: -0.05em;
+}
+
+.filled-icon {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-outline-variant rounded-full;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-outline;
+}

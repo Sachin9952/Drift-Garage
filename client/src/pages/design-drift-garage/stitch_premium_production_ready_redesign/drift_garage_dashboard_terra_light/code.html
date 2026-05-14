@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style data-purpose="custom-fonts">
+    @import url('https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,400..700&family=Nunito+Sans:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Nunito Sans', sans-serif;
+    }
+    h1, h2, h3, h4, h5, h6, .font-headline {
+      font-family: 'Literata', serif;
+    }
+  </style>
+<style data-purpose="animations">
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+    .delay-400 { animation-delay: 400ms; }
+  </style>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "on-secondary-fixed-variant": "#4a4538",
+                "background": "#faf6f0",
+                "surface-container": "#f0ece4",
+                "inverse-on-surface": "#f5f0e8",
+                "surface-variant": "#e4e0d8",
+                "primary-container": "#78a886",
+                "on-background": "#2e3230",
+                "primary": "#4a7c59",
+                "on-primary-fixed": "#002110",
+                "tertiary-fixed-dim": "#dcc48e",
+                "outline-variant": "#c4c8bc",
+                "secondary-fixed-dim": "#d4ccbf",
+                "primary-fixed-dim": "#8ecf9e",
+                "on-secondary-container": "#5e5548",
+                "on-surface": "#2e3230",
+                "surface-tint": "#4a7c59",
+                "primary-fixed": "#c8e8d0",
+                "on-secondary": "#ffffff",
+                "on-primary-fixed-variant": "#2a6038",
+                "surface-dim": "#dbd7cf",
+                "on-tertiary": "#ffffff",
+                "on-error": "#ffffff",
+                "inverse-surface": "#2e3230",
+                "on-surface-variant": "#4a4e4a",
+                "surface-container-lowest": "#ffffff",
+                "secondary": "#6b6358",
+                "inverse-primary": "#8ecf9e",
+                "tertiary-container": "#c4a66a",
+                "surface-container-highest": "#e4e0d8",
+                "on-tertiary-fixed": "#221a05",
+                "secondary-fixed": "#f0e8db",
+                "secondary-container": "#f0e8db",
+                "error-container": "#ffdad8",
+                "surface": "#faf6f0",
+                "tertiary": "#705c30",
+                "on-tertiary-container": "#554020",
+                "tertiary-fixed": "#f8e0a8",
+                "surface-container-low": "#f5f1ea",
+                "on-primary": "#ffffff",
+                "surface-bright": "#faf6f0",
+                "on-secondary-fixed": "#1e1a13",
+                "surface-container-high": "#eae6de",
+                "on-tertiary-fixed-variant": "#554020",
+                "outline": "#74796e",
+                "on-error-container": "#690005",
+                "on-primary-container": "#d8f0de",
+                "error": "#b83230"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.5rem",
+                "lg": "1rem",
+                "xl": "1.5rem",
+                "full": "9999px"
+        },
+        "spacing": {},
+        "fontFamily": {
+                "headline": [
+                        "Literata"
+                ],
+                "display": [
+                        "Literata"
+                ],
+                "body": [
+                        "Nunito Sans"
+                ],
+                "label": [
+                        "Nunito Sans"
+                ]
+        },
+        "fontSize": {}
+      }
+    }
+  }
+</script>
+</head>
+<body class="flex h-screen overflow-hidden bg-background text-on-background">
+<!-- BEGIN: Sidebar -->
+<aside aria-label="Sidebar" class="w-64 bg-surface-container border-r border-outline-variant flex flex-col justify-between">
+<div>
+<!-- Logo Area -->
+<div class="h-20 flex items-center px-6">
+<h1 class="text-3xl font-bold text-on-background tracking-wider italic font-headline">Drift<br/>Garage</h1>
+</div>
+<!-- Admin Profile -->
+<div class="px-6 py-4 mb-6">
+<div class="flex items-center gap-4 p-3 rounded-xl bg-surface-container-lowest border border-outline-variant">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-on-surface-variant">
+<i class="w-5 h-5" data-lucide="user"></i>
+</div>
+<div>
+<p class="text-sm font-semibold text-on-surface">Admin User</p>
+<p class="text-xs text-on-surface-variant font-medium tracking-wide">ADMIN ACCESS</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary text-on-primary font-medium transition-colors shadow-sm" href="#">
+<i class="w-5 h-5" data-lucide="layout-dashboard"></i>
+          Dashboard
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors font-medium" href="#">
+<i class="w-5 h-5" data-lucide="box"></i>
+          Products
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors font-medium" href="#">
+<i class="w-5 h-5" data-lucide="shopping-bag"></i>
+          Orders
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors font-medium" href="#">
+<i class="w-5 h-5" data-lucide="users"></i>
+          Users
+        </a>
+</nav>
+</div>
+<!-- Logout -->
+<div class="p-4 border-t border-outline-variant">
+<button class="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-variant transition-colors font-medium">
+<i class="w-5 h-5" data-lucide="log-out"></i>
+        Logout
+      </button>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content -->
+<main class="flex-1 overflow-y-auto p-8 sm:p-12 lg:p-16">
+<!-- Header -->
+<header class="mb-10 animate-fade-in">
+<h2 class="text-4xl font-bold text-on-background mb-2 tracking-tight font-headline">Command Center</h2>
+<p class="text-on-surface-variant text-lg">Live metrics and system status.</p>
+</header>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+<!-- Total Revenue Card -->
+<article class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm relative overflow-hidden animate-fade-in delay-100 group hover:border-outline transition-colors">
+<!-- Subtle background glow -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-primary-container/20 rounded-full blur-3xl group-hover:bg-primary-container/30 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-primary-container flex items-center justify-center text-on-primary-container">
+<i class="w-6 h-6" data-lucide="banknote"></i>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-primary-container text-on-primary-container border border-primary-container">
+            +12.5%
+          </span>
+</div>
+<div class="relative z-10">
+<h3 class="text-on-surface-variant font-medium text-sm mb-1 uppercase tracking-wider">Total Revenue</h3>
+<p class="text-3xl font-bold text-on-surface font-headline">₹12,890.00</p>
+</div>
+</article>
+<!-- Total Orders Card -->
+<article class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm relative overflow-hidden animate-fade-in delay-200 group hover:border-outline transition-colors">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-secondary-container/20 rounded-full blur-3xl group-hover:bg-secondary-container/30 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-secondary-container text-on-secondary-container flex items-center justify-center border border-secondary-container">
+<i class="w-6 h-6" data-lucide="shopping-bag"></i>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-secondary-container text-on-secondary-container border border-secondary-container">
+            New
+          </span>
+</div>
+<div class="relative z-10">
+<h3 class="text-on-surface-variant font-medium text-sm mb-1 uppercase tracking-wider">Total Orders</h3>
+<p class="text-3xl font-bold text-on-surface font-headline">24</p>
+</div>
+</article>
+<!-- New Users Card -->
+<article class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm relative overflow-hidden animate-fade-in delay-300 group hover:border-outline transition-colors">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-tertiary-container/20 rounded-full blur-3xl group-hover:bg-tertiary-container/30 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<i class="w-6 h-6" data-lucide="user-plus"></i>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-tertiary-container text-on-tertiary-container border border-tertiary-container">
+            +4.2%
+          </span>
+</div>
+<div class="relative z-10">
+<h3 class="text-on-surface-variant font-medium text-sm mb-1 uppercase tracking-wider">New Users</h3>
+<p class="text-3xl font-bold text-on-surface font-headline">128</p>
+</div>
+</article>
+<!-- Out of Stock Card -->
+<article class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm relative overflow-hidden animate-fade-in delay-400 group hover:border-error transition-colors">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-error-container/20 rounded-full blur-3xl group-hover:bg-error-container/30 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-error-container text-on-error-container flex items-center justify-center border border-error-container">
+<i class="w-6 h-6" data-lucide="alert-triangle"></i>
+</div>
+</div>
+<div class="relative z-10">
+<h3 class="text-on-surface-variant font-medium text-sm mb-1 uppercase tracking-wider">Out of Stock</h3>
+<p class="text-3xl font-bold text-error font-headline">3 Items</p>
+</div>
+</article>
+</div>
+</main>
+<!-- END: Main Content -->
+<!-- Initialize Lucide Icons -->
+<script data-purpose="icon-setup">
+    lucide.createIcons();
+  </script>
+</body></html>

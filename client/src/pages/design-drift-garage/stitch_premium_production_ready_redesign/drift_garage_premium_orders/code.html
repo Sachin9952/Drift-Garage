@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Drift Garage - Customer Orders</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'drift-dark': '#121212',
+            'drift-surface': '#1e1e1e',
+            'drift-surface-light': '#2a2a2a',
+            'drift-neon': '#00ffff',
+            'drift-neon-hover': '#33ffff',
+            'drift-text-primary': '#ffffff',
+            'drift-text-secondary': '#a0a0a0',
+            'drift-border': '#333333',
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Montserrat', 'sans-serif'],
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.5s ease-out',
+            'slide-up': 'slideUp 0.5s ease-out',
+          },
+          keyframes: {
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' },
+            },
+            slideUp: {
+              '0%': { opacity: '0', transform: 'translateY(20px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Montserrat:ital,wght@0,700;0,800;1,700;1,800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<style data-purpose="custom-scrollbars">
+    /* Custom Scrollbar for a premium feel */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #121212; 
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333; 
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555; 
+    }
+  </style>
+</head>
+<body class="bg-drift-dark text-drift-text-primary font-sans h-screen flex overflow-hidden antialiased">
+<!-- BEGIN: Sidebar -->
+<aside class="w-64 bg-drift-surface border-r border-drift-border flex flex-col justify-between hidden md:flex shrink-0">
+<div>
+<!-- Brand Logo -->
+<div class="p-6">
+<h1 class="font-display font-black text-4xl italic leading-tight text-white tracking-tight">
+          Drift<br/>Garage
+        </h1>
+</div>
+<!-- User Profile -->
+<div class="px-6 py-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-drift-surface-light border border-drift-border flex items-center justify-center text-drift-text-secondary">
+<i class="fa-regular fa-user"></i>
+</div>
+<div>
+<div class="text-sm font-semibold text-white">Admin User</div>
+<div class="text-xs text-drift-text-secondary font-medium tracking-wider">ADMIN ACCESS</div>
+</div>
+</div>
+<!-- Navigation -->
+<nav class="mt-8 px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-drift-text-secondary hover:bg-drift-surface-light hover:text-white transition-colors group" href="#">
+<i class="fa-solid fa-border-all w-5 text-center group-hover:text-drift-neon transition-colors"></i>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-drift-text-secondary hover:bg-drift-surface-light hover:text-white transition-colors group" href="#">
+<i class="fa-solid fa-box-open w-5 text-center group-hover:text-drift-neon transition-colors"></i>
+<span class="font-medium">Products</span>
+</a>
+<!-- Active Nav Item -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-drift-neon text-black transition-colors shadow-[0_0_15px_rgba(0,255,255,0.3)]" href="#">
+<i class="fa-solid fa-bag-shopping w-5 text-center"></i>
+<span class="font-semibold">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-drift-text-secondary hover:bg-drift-surface-light hover:text-white transition-colors group" href="#">
+<i class="fa-solid fa-users w-5 text-center group-hover:text-drift-neon transition-colors"></i>
+<span class="font-medium">Users</span>
+</a>
+</nav>
+</div>
+<!-- Logout -->
+<div class="p-6 border-t border-drift-border mt-auto">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-drift-text-secondary hover:bg-drift-surface-light hover:text-white transition-colors group" href="#">
+<i class="fa-solid fa-arrow-right-from-bracket w-5 text-center group-hover:text-red-400 transition-colors"></i>
+<span class="font-medium">Logout</span>
+</a>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content Area -->
+<main class="flex-1 flex flex-col h-full overflow-hidden relative bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-[#1a1a1a] to-drift-dark">
+<!-- Mobile Header (Visible only on small screens) -->
+<header class="md:hidden bg-drift-surface border-b border-drift-border p-4 flex justify-between items-center z-10">
+<h1 class="font-display font-black text-xl italic text-white">Drift Garage</h1>
+<button class="text-drift-text-secondary hover:text-white">
+<i class="fa-solid fa-bars text-xl"></i>
+</button>
+</header>
+<div class="flex-1 overflow-y-auto p-6 md:p-10 animate-fade-in">
+<!-- Page Header -->
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 animate-slide-up" style="animation-delay: 0.1s; animation-fill-mode: both;">
+<h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight">Customer Orders</h2>
+<!-- Search and Filter Actions (Optional placeholders for premium feel) -->
+<div class="flex gap-3">
+<div class="relative">
+<i class="fa-solid fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-drift-text-secondary text-sm"></i>
+<input class="bg-drift-surface border border-drift-border text-white text-sm rounded-lg focus:ring-drift-neon focus:border-drift-neon block w-full pl-9 p-2.5 transition-colors placeholder-drift-text-secondary" placeholder="Search orders..." type="text"/>
+</div>
+<button class="bg-drift-surface border border-drift-border text-white hover:bg-drift-surface-light px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+<i class="fa-solid fa-filter"></i> Filter
+          </button>
+</div>
+</div>
+<!-- Orders Table Container -->
+<div class="bg-drift-surface rounded-xl border border-drift-border shadow-2xl overflow-hidden animate-slide-up" style="animation-delay: 0.2s; animation-fill-mode: both;">
+<div class="overflow-x-auto">
+<table class="w-full text-sm text-left text-drift-text-secondary">
+<thead class="text-xs text-drift-text-secondary uppercase bg-drift-surface-light/50 border-b border-drift-border font-semibold tracking-wider">
+<tr>
+<th class="px-6 py-4" scope="col">Order ID</th>
+<th class="px-6 py-4" scope="col">Customer</th>
+<th class="px-6 py-4" scope="col">Date</th>
+<th class="px-6 py-4" scope="col">Total</th>
+<th class="px-6 py-4" scope="col">Status</th>
+<th class="px-6 py-4 text-right" scope="col">Actions</th>
+</tr>
+</thead>
+<tbody>
+<!-- Row 1 -->
+<tr class="bg-drift-surface border-b border-drift-border hover:bg-drift-surface-light/30 transition-colors group">
+<td class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                  #ORD-7392
+                </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center text-xs font-bold text-white">JD</div>
+<div>
+<div class="text-white font-medium">John Doe</div>
+<div class="text-xs text-drift-text-secondary">john.d@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">Oct 24, 2023</td>
+<td class="px-6 py-4 font-medium text-white">$1,249.99</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-500/10 text-green-400 border border-green-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-green-400"></span> Completed
+                  </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-drift-text-secondary hover:text-drift-neon transition-colors p-2 rounded-lg hover:bg-drift-surface-light opacity-0 group-hover:opacity-100 focus:opacity-100">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-drift-surface border-b border-drift-border hover:bg-drift-surface-light/30 transition-colors group">
+<td class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                  #ORD-7391
+                </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center text-xs font-bold text-white">AS</div>
+<div>
+<div class="text-white font-medium">Alice Smith</div>
+<div class="text-xs text-drift-text-secondary">alice.s@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">Oct 23, 2023</td>
+<td class="px-6 py-4 font-medium text-white">$85.50</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span> Processing
+                  </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-drift-text-secondary hover:text-drift-neon transition-colors p-2 rounded-lg hover:bg-drift-surface-light opacity-0 group-hover:opacity-100 focus:opacity-100">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-drift-surface border-b border-drift-border hover:bg-drift-surface-light/30 transition-colors group">
+<td class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                  #ORD-7390
+                </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center text-xs font-bold text-white">RJ</div>
+<div>
+<div class="text-white font-medium">Robert Johnson</div>
+<div class="text-xs text-drift-text-secondary">r.johnson@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">Oct 21, 2023</td>
+<td class="px-6 py-4 font-medium text-white">$450.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-red-500/10 text-red-400 border border-red-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-red-400"></span> Cancelled
+                  </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-drift-text-secondary hover:text-drift-neon transition-colors p-2 rounded-lg hover:bg-drift-surface-light opacity-0 group-hover:opacity-100 focus:opacity-100">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-drift-surface hover:bg-drift-surface-light/30 transition-colors group">
+<td class="px-6 py-4 font-medium text-white whitespace-nowrap">
+                  #ORD-7389
+                </td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-[#2a2a2a] flex items-center justify-center text-xs font-bold text-white">EW</div>
+<div>
+<div class="text-white font-medium">Emma Watson</div>
+<div class="text-xs text-drift-text-secondary">emma.w@example.com</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">Oct 20, 2023</td>
+<td class="px-6 py-4 font-medium text-white">$2,100.00</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-400 border border-blue-500/20">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span> Shipped
+                  </span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-drift-text-secondary hover:text-drift-neon transition-colors p-2 rounded-lg hover:bg-drift-surface-light opacity-0 group-hover:opacity-100 focus:opacity-100">
+<i class="fa-solid fa-ellipsis-vertical"></i>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 border-t border-drift-border bg-drift-surface-light/20 flex items-center justify-between">
+<span class="text-sm text-drift-text-secondary">Showing <span class="font-medium text-white">1</span> to <span class="font-medium text-white">4</span> of <span class="font-medium text-white">97</span> results</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 text-sm bg-drift-surface border border-drift-border rounded-md text-drift-text-secondary hover:text-white hover:bg-drift-surface-light transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled="">Prev</button>
+<button class="px-3 py-1 text-sm bg-drift-surface border border-drift-border rounded-md text-drift-text-secondary hover:text-white hover:bg-drift-surface-light transition-colors">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- END: Main Content Area -->
+</body></html>

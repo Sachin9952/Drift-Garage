@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Command Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+<style data-purpose="custom-fonts">
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f1115; /* Deep dark background */
+      color: #e2e8f0;
+    }
+  </style>
+<style data-purpose="animations">
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fadeIn 0.5s ease-out forwards;
+      opacity: 0;
+    }
+    .delay-100 { animation-delay: 100ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-300 { animation-delay: 300ms; }
+    .delay-400 { animation-delay: 400ms; }
+  </style>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            sidebar: '#16191e',
+            card: '#1e2128',
+            primary: '#00f2fe',
+            accent: '#ff6b6b'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="flex h-screen overflow-hidden">
+<!-- BEGIN: Sidebar -->
+<aside aria-label="Sidebar" class="w-64 bg-sidebar border-r border-gray-800 flex flex-col justify-between">
+<div>
+<!-- Logo Area -->
+<div class="h-20 flex items-center px-6">
+<h1 class="text-3xl font-bold text-white tracking-wider italic">Drift<br/>Garage</h1>
+</div>
+<!-- Admin Profile -->
+<div class="px-6 py-4 mb-6">
+<div class="flex items-center gap-4 p-3 rounded-xl bg-gray-800/50 border border-gray-700/50">
+<div class="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center text-gray-300">
+<i class="w-5 h-5" data-lucide="user"></i>
+</div>
+<div>
+<p class="text-sm font-semibold text-white">Admin User</p>
+<p class="text-xs text-gray-400 font-medium tracking-wide">ADMIN ACCESS</p>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="px-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary text-gray-900 font-medium transition-colors shadow-[0_0_15px_rgba(0,242,254,0.3)]" href="#">
+<i class="w-5 h-5" data-lucide="layout-dashboard"></i>
+          Dashboard
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors font-medium" href="#">
+<i class="w-5 h-5" data-lucide="box"></i>
+          Products
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors font-medium" href="#">
+<i class="w-5 h-5" data-lucide="shopping-bag"></i>
+          Orders
+        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors font-medium" href="#">
+<i class="w-5 h-5" data-lucide="users"></i>
+          Users
+        </a>
+</nav>
+</div>
+<!-- Logout -->
+<div class="p-4 border-t border-gray-800">
+<button class="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800/50 transition-colors font-medium">
+<i class="w-5 h-5" data-lucide="log-out"></i>
+        Logout
+      </button>
+</div>
+</aside>
+<!-- END: Sidebar -->
+<!-- BEGIN: Main Content -->
+<main class="flex-1 overflow-y-auto p-8 sm:p-12 lg:p-16">
+<!-- Header -->
+<header class="mb-10 animate-fade-in">
+<h2 class="text-4xl font-bold text-white mb-2 tracking-tight">Command Center</h2>
+<p class="text-gray-400 text-lg">Live metrics and system status.</p>
+</header>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+<!-- Total Revenue Card -->
+<article class="bg-card rounded-2xl p-6 border border-gray-800 shadow-lg shadow-black/20 relative overflow-hidden animate-fade-in delay-100 group hover:border-gray-700 transition-colors">
+<!-- Subtle background glow -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-gray-600/10 rounded-full blur-3xl group-hover:bg-gray-500/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center text-gray-300">
+<i class="w-6 h-6" data-lucide="banknote"></i>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-800 text-gray-300 border border-gray-700">
+            +12.5%
+          </span>
+</div>
+<div class="relative z-10">
+<h3 class="text-gray-400 font-medium text-sm mb-1 uppercase tracking-wider">Total Revenue</h3>
+<p class="text-3xl font-bold text-white">₹12,890.00</p>
+</div>
+</article>
+<!-- Total Orders Card -->
+<article class="bg-card rounded-2xl p-6 border border-gray-800 shadow-lg shadow-black/20 relative overflow-hidden animate-fade-in delay-200 group hover:border-gray-700 transition-colors">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-orange-900/10 rounded-full blur-3xl group-hover:bg-orange-800/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-orange-950/50 text-orange-400 flex items-center justify-center border border-orange-900/50">
+<i class="w-6 h-6" data-lucide="shopping-bag"></i>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-orange-950/50 text-orange-400 border border-orange-900/50">
+            New
+          </span>
+</div>
+<div class="relative z-10">
+<h3 class="text-gray-400 font-medium text-sm mb-1 uppercase tracking-wider">Total Orders</h3>
+<p class="text-3xl font-bold text-white">24</p>
+</div>
+</article>
+<!-- New Users Card -->
+<article class="bg-card rounded-2xl p-6 border border-gray-800 shadow-lg shadow-black/20 relative overflow-hidden animate-fade-in delay-300 group hover:border-gray-700 transition-colors">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-gray-600/10 rounded-full blur-3xl group-hover:bg-gray-500/10 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-gray-800 flex items-center justify-center text-gray-300">
+<i class="w-6 h-6" data-lucide="user-plus"></i>
+</div>
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-gray-800 text-gray-300 border border-gray-700">
+            +4.2%
+          </span>
+</div>
+<div class="relative z-10">
+<h3 class="text-gray-400 font-medium text-sm mb-1 uppercase tracking-wider">New Users</h3>
+<p class="text-3xl font-bold text-white">128</p>
+</div>
+</article>
+<!-- Out of Stock Card -->
+<article class="bg-card rounded-2xl p-6 border border-gray-800 shadow-lg shadow-black/20 relative overflow-hidden animate-fade-in delay-400 group hover:border-red-900/50 transition-colors">
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-red-900/10 rounded-full blur-3xl group-hover:bg-red-800/20 transition-colors"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div class="w-12 h-12 rounded-xl bg-red-950/50 text-red-400 flex items-center justify-center border border-red-900/50">
+<i class="w-6 h-6" data-lucide="alert-triangle"></i>
+</div>
+</div>
+<div class="relative z-10">
+<h3 class="text-gray-400 font-medium text-sm mb-1 uppercase tracking-wider">Out of Stock</h3>
+<p class="text-3xl font-bold text-red-400">3 Items</p>
+</div>
+</article>
+</div>
+</main>
+<!-- END: Main Content -->
+<!-- Initialize Lucide Icons -->
+<script data-purpose="icon-setup">
+    lucide.createIcons();
+  </script>
+</body></html>

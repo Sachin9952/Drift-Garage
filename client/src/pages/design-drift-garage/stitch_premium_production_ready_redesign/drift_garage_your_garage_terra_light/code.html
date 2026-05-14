@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Drift Garage - Your Garage</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,200..900;1,7..72,200..900&amp;family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#c4c8bc",
+                        "inverse-on-surface": "#f5f0e8",
+                        "on-secondary-fixed": "#1e1a13",
+                        "primary-container": "#78a886",
+                        "on-tertiary-fixed": "#221a05",
+                        "on-secondary-fixed-variant": "#4a4538",
+                        "error-container": "#ffdad8",
+                        "secondary-container": "#f0e8db",
+                        "surface": "#faf6f0",
+                        "on-error-container": "#690005",
+                        "primary": "#4a7c59",
+                        "inverse-surface": "#2e3230",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#f0ece4",
+                        "on-primary-fixed-variant": "#2a6038",
+                        "tertiary": "#705c30",
+                        "primary-fixed-dim": "#8ecf9e",
+                        "surface-bright": "#faf6f0",
+                        "on-tertiary-container": "#554020",
+                        "surface-container-low": "#f5f1ea",
+                        "surface-container-highest": "#e4e0d8",
+                        "on-surface": "#2e3230",
+                        "surface-variant": "#e4e0d8",
+                        "on-tertiary-fixed-variant": "#554020",
+                        "secondary-fixed-dim": "#d4ccbf",
+                        "primary-fixed": "#c8e8d0",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed-dim": "#dcc48e",
+                        "on-secondary-container": "#5e5548",
+                        "surface-tint": "#4a7c59",
+                        "secondary-fixed": "#f0e8db",
+                        "secondary": "#6b6358",
+                        "on-primary-container": "#d8f0de",
+                        "on-background": "#2e3230",
+                        "tertiary-container": "#c4a66a",
+                        "error": "#b83230",
+                        "surface-dim": "#dbd7cf",
+                        "on-surface-variant": "#4a4e4a",
+                        "on-primary-fixed": "#002110",
+                        "surface-container-high": "#eae6de",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#8ecf9e",
+                        "outline": "#74796e",
+                        "tertiary-fixed": "#f8e0a8",
+                        "background": "#faf6f0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "1rem",
+                        "xl": "1.5rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {},
+                    "fontFamily": {
+                        "headline": [
+                            "Literata"
+                        ],
+                        "display": [
+                            "Literata"
+                        ],
+                        "body": [
+                            "Nunito Sans"
+                        ],
+                        "label": [
+                            "Nunito Sans"
+                        ]
+                    },
+                    "fontSize": {}
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body antialiased selection:bg-primary-container selection:text-on-primary-container pt-24">
+<!-- TopNavBar -->
+<nav class="docked full-width top-0 bg-surface/80 backdrop-blur-md shadow-sm dark:shadow-none fixed top-0 w-full z-50 flex items-center justify-between px-6 py-4 max-w-7xl mx-auto left-0 right-0">
+<div class="flex items-center gap-8">
+<a class="font-headline text-2xl font-bold text-primary dark:text-primary-fixed-dim" href="#">Drift Garage</a>
+</div>
+<div class="flex-1 flex justify-center gap-8">
+<a class="text-on-surface-variant dark:text-outline-variant font-body hover:text-primary transition-colors font-headline text-headline-sm tracking-tight font-semibold hover:text-primary-container dark:hover:text-primary-fixed transition-all active:scale-95 duration-200 transition-transform" href="#">Shop</a>
+<a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-headline text-headline-sm tracking-tight font-semibold hover:text-primary-container dark:hover:text-primary-fixed transition-all active:scale-95 duration-200 transition-transform" href="#">Garage</a>
+</div>
+<div class="flex items-center gap-4 text-primary dark:text-primary-fixed-dim">
+<button class="p-2 rounded-full hover:bg-secondary-container dark:hover:bg-on-secondary-fixed-variant transition-colors active:scale-95 duration-200 transition-transform">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+</button>
+<button class="p-2 rounded-full hover:bg-secondary-container dark:hover:bg-on-secondary-fixed-variant transition-colors active:scale-95 duration-200 transition-transform">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<main class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Left Column: Cart Items -->
+<section class="lg:col-span-8 flex flex-col gap-6">
+<div class="mb-4">
+<h1 class="font-headline text-4xl font-bold text-on-surface mb-2">Your Garage</h1>
+<p class="text-on-surface-variant text-label-lg">You have 2 items ready for checkout.</p>
+</div>
+<!-- Cart Item 1 -->
+<article class="bg-surface-container-low rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)] flex flex-col sm:flex-row gap-6 relative group border border-outline-variant/10">
+<div class="w-full sm:w-48 h-48 rounded-lg overflow-hidden shrink-0 bg-surface-container-highest">
+<img alt="Hotwheel Truck" class="w-full h-full object-cover" data-alt="A detailed, macro photograph of a vintage toy truck resting on a textured wooden table. The lighting is warm and natural, casting soft shadows that highlight the metallic details and weathered paint of the miniature vehicle. The overall aesthetic is earthy and nostalgic, fitting a premium, organic design style with deep greens and warm creams." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCaVKwAi_s8gmvs6_-BA0ps-4YFh4Uom6expzVUpYA5L_OH-Whc0XPaksP8Vh31uJ78ANoIlIgnsleEiQlohjxVtPCV7UE2uNYI5-qVWZ4Qy-uakdHE5T0y6tVnhEA-_Hwc43Vff47Vk9Mzjy3TupYapoRoN0sgIIXH2b6LNEkH4sz5HKkaFPHWexHkgpW2hkFePkpANW-DEGuDl5TFtQEW56h6i6-B-LKklMfzLb4tLuULfTABMzSZOPe7Su1IPWFwArn1dGZljsIJ"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-start gap-4">
+<div>
+<span class="text-tertiary font-bold text-sm tracking-wide uppercase mb-1 block">Die-Cast Models</span>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-2">Vintage Hotwheel Truck</h3>
+<p class="text-on-surface-variant text-label-lg mb-4 line-clamp-2">A meticulously detailed 1:64 scale replica of a classic pickup, featuring weathered patina and custom rims. Perfect for display or the ultimate track run.</p>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-2 -mr-2 -mt-2 rounded-full hover:bg-error-container/20 active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-auto border-t border-outline-variant/20 pt-4">
+<div class="flex items-center bg-surface rounded-lg border border-outline-variant/30 overflow-hidden">
+<button class="px-3 py-2 text-on-surface-variant hover:bg-secondary-container hover:text-primary transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="px-4 py-2 font-bold text-on-surface border-x border-outline-variant/30 min-w-[3rem] text-center">1</span>
+<button class="px-3 py-2 text-on-surface-variant hover:bg-secondary-container hover:text-primary transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+<div class="text-right w-full sm:w-auto">
+<span class="font-headline text-2xl font-bold text-primary">$45.00</span>
+</div>
+</div>
+</div>
+</article>
+<!-- Cart Item 2 -->
+<article class="bg-surface-container-low rounded-xl p-6 shadow-[0_4px_20px_rgba(46,50,48,0.06)] flex flex-col sm:flex-row gap-6 relative group border border-outline-variant/10">
+<div class="w-full sm:w-48 h-48 rounded-lg overflow-hidden shrink-0 bg-surface-container-highest">
+<img alt="Hotwheel Truck" class="w-full h-full object-cover" data-alt="A close-up studio shot of a vibrant, custom-painted miniature race car on a clean, light cream background. The lighting is soft and diffused, creating elegant highlights along the car's curves. The color palette emphasizes warm, organic tones with subtle green accents, aligning with a sophisticated, earthy design theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC0DVxOp_lmj-F6wk8ghfs3tMNQqjYq_Z9AYQ2i7MMm2hxsuyOTpdtfVhg__2K1FTfUdXFzA7B3pU_TBG4c80ZmLxsOis-Ju8HT2Wpmz5Lhvfnee5toUVX3Og15smsuYez5Q7rL0ZOhee5EjOahFnNqpO_gjYcxva7SDvL9cj3apUI1SLLg9zTfYIS_r0yE4GLO26AxPruMjJT7yduijA-p13wh4XWZNHVg12j-aUBPrFeygLTsaqC_ax6JZ-9yyZCGbLp93qqUZ-4e"/>
+</div>
+<div class="flex-1 flex flex-col justify-between">
+<div class="flex justify-between items-start gap-4">
+<div>
+<span class="text-tertiary font-bold text-sm tracking-wide uppercase mb-1 block">Accessories</span>
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-2">Display Case Set</h3>
+<p class="text-on-surface-variant text-label-lg mb-4 line-clamp-2">Premium acrylic display cases with warm oak bases to showcase your finest models while protecting them from dust.</p>
+</div>
+<button class="text-on-surface-variant hover:text-error transition-colors p-2 -mr-2 -mt-2 rounded-full hover:bg-error-container/20 active:scale-95 duration-200">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-auto border-t border-outline-variant/20 pt-4">
+<div class="flex items-center bg-surface rounded-lg border border-outline-variant/30 overflow-hidden">
+<button class="px-3 py-2 text-on-surface-variant hover:bg-secondary-container hover:text-primary transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="remove">remove</span>
+</button>
+<span class="px-4 py-2 font-bold text-on-surface border-x border-outline-variant/30 min-w-[3rem] text-center">2</span>
+<button class="px-3 py-2 text-on-surface-variant hover:bg-secondary-container hover:text-primary transition-colors active:scale-95 duration-150">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+</button>
+</div>
+<div class="text-right w-full sm:w-auto">
+<span class="font-headline text-2xl font-bold text-primary">$120.00</span>
+</div>
+</div>
+</div>
+</article>
+</section>
+<!-- Right Column: Order Summary (Sticky) -->
+<aside class="lg:col-span-4 relative">
+<div class="sticky top-32 bg-surface-container rounded-xl p-8 shadow-[0_4px_20px_rgba(46,50,48,0.06)] border border-outline-variant/10">
+<h2 class="font-headline text-2xl font-bold text-on-surface mb-6 pb-4 border-b border-outline-variant/20">Order Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex justify-between items-center text-on-surface-variant text-label-lg">
+<span>Subtotal</span>
+<span class="font-bold text-on-surface">$165.00</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant text-label-lg">
+<span>Estimated Shipping</span>
+<span class="font-bold text-on-surface">$12.50</span>
+</div>
+<div class="flex justify-between items-center text-on-surface-variant text-label-lg">
+<span>Estimated Tax</span>
+<span class="font-bold text-on-surface">$14.20</span>
+</div>
+</div>
+<div class="border-t border-outline-variant/20 pt-6 mb-8">
+<div class="flex justify-between items-end">
+<span class="font-headline text-xl font-bold text-on-surface">Total</span>
+<span class="font-headline text-4xl font-extrabold text-primary">$191.70</span>
+</div>
+</div>
+<button class="w-full bg-primary hover:bg-primary-fixed-dim text-on-primary font-bold py-4 px-6 rounded-xl transition-colors active:scale-[0.98] duration-200 flex items-center justify-center gap-2 shadow-sm text-lg">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+                    Proceed to Checkout
+                </button>
+<p class="text-center text-on-surface-variant text-sm mt-4 flex items-center justify-center gap-1">
+<span class="material-symbols-outlined text-base" data-icon="shield">shield</span>
+                    Secure Checkout Processing
+                </p>
+</div>
+</aside>
+</main>
+</body></html>
