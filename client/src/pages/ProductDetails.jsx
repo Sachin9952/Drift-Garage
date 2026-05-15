@@ -58,7 +58,9 @@ const ProductDetails = () => {
   if (!product) return null;
 
   const displayImage = product.image?.startsWith('http') ? product.image : 
+                       product.image ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${product.image}` :
                        (product.images && product.images[0]?.startsWith('http')) ? product.images[0] :
+                       (product.images && product.images[0]) ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${product.images[0]}` :
                        'https://via.placeholder.com/400x300?text=No+Asset+Found';
 
   return (

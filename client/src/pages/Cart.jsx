@@ -63,7 +63,13 @@ const Cart = () => {
                 <img 
                   alt={item.product.name} 
                   className="w-full h-full object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-700" 
-                  src={item.product.image.startsWith('http') ? item.product.image : `${import.meta.env.VITE_API_URL || ''}${item.product.image}`} 
+                  src={
+                    item.product.image?.startsWith('http') ? item.product.image : 
+                    item.product.image ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.image}` :
+                    (item.product.images && item.product.images[0]?.startsWith('http')) ? item.product.images[0] :
+                    (item.product.images && item.product.images[0]) ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.images[0]}` :
+                    'https://via.placeholder.com/400x300?text=No+Asset+Found'
+                  } 
                 />
               </div>
               <div className="flex-grow flex flex-col justify-between h-full gap-6">

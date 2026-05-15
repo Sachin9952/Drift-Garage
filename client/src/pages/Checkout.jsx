@@ -47,7 +47,7 @@ const Checkout = () => {
       items: cartItems.map(item => ({
         name: item.product.name,
         quantity: item.quantity,
-        image: item.product.image,
+        image: item.product.image || item.product.images?.[0] || '',
         price: item.product.price,
         product: item.product._id
       })),
@@ -193,7 +193,9 @@ const Checkout = () => {
                       className="w-full h-full object-contain" 
                       src={
                         item.product.image?.startsWith('http') ? item.product.image : 
+                        item.product.image ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.image}` :
                         (item.product.images && item.product.images[0]?.startsWith('http')) ? item.product.images[0] :
+                        (item.product.images && item.product.images[0]) ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.images[0]}` :
                         'https://via.placeholder.com/400x300?text=No+Asset+Found'
                       } 
                     />

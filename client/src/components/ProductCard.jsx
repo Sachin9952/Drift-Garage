@@ -5,7 +5,9 @@ const ProductCard = ({ product }) => {
   const { _id, brand, name, price, image, isFeatured, stock } = product;
   
   const displayImage = image?.startsWith('http') ? image : 
+                       image ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${image}` :
                        (product.images && product.images[0]?.startsWith('http')) ? product.images[0] :
+                       (product.images && product.images[0]) ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${product.images[0]}` :
                        'https://via.placeholder.com/400x300?text=No+Asset+Found';
 
   return (
