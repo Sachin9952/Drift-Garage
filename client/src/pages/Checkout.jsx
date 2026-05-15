@@ -191,7 +191,11 @@ const Checkout = () => {
                     <img 
                       alt={item.product.name} 
                       className="w-full h-full object-contain" 
-                      src={item.product.image.startsWith('http') ? item.product.image : `${import.meta.env.VITE_API_URL || ''}${item.product.image}`} 
+                      src={
+                        item.product.image?.startsWith('http') ? item.product.image : 
+                        (item.product.images && item.product.images[0]?.startsWith('http')) ? item.product.images[0] :
+                        'https://via.placeholder.com/400x300?text=No+Asset+Found'
+                      } 
                     />
                   </div>
                   <div className="flex-grow">
