@@ -12,6 +12,7 @@ const placeOrder = async (req, res) => {
     }
 
     const order = new Order({
+      user: req.user ? req.user._id : undefined,
       customerDetails,
       items,
       totalAmount,
@@ -19,6 +20,18 @@ const placeOrder = async (req, res) => {
 
     const createdOrder = await order.save();
     res.status(201).json(createdOrder);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Get logged in user orders
+// @route   GET /api/orders/my-orders
+// @access  Private
+const getMyOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user._id }).sort({ createdAt: -1 });
+    res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -57,6 +70,7 @@ const updateOrderStatus = async (req, res) => {
 
 module.exports = {
   placeOrder,
+  getMyOrders,
   getOrders,
   updateOrderStatus,
 };

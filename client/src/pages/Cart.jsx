@@ -29,7 +29,7 @@ const Cart = () => {
     return acc + item.product.price * item.quantity;
   }, 0);
 
-  const shipping = cartItems.length > 0 ? 150.00 : 0;
+  const shipping = cartItems.length > 0 ? 90.00 : 0;
   const tax = subtotal * 0.18;
   const total = subtotal + shipping + tax;
 
@@ -56,30 +56,30 @@ const Cart = () => {
           {cartItems.map((item, index) => (
             <div 
               key={item.product._id} 
-              className="bg-white border border-outline-variant rounded-[32px] p-8 flex flex-col sm:flex-row gap-10 items-center shadow-lg hover:shadow-xl transition-all animate-fade-in group"
+              className="bg-white border border-outline-variant rounded-[32px] p-8 flex flex-col sm:flex-row gap-10 items-center shadow-lg hover:shadow-2xl transition-all duration-500 animate-fade-in group"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="w-40 h-40 rounded-2xl bg-surface-container-low border border-outline-variant overflow-hidden flex-shrink-0 flex items-center justify-center p-6 group-hover:bg-white transition-colors duration-500">
+              <div className="w-40 h-40 rounded-[24px] bg-surface-container-lowest border border-outline-variant/60 overflow-hidden flex-shrink-0 flex items-center justify-center p-6 group-hover:bg-white transition-colors duration-700">
                 <img 
-                  alt={item.product.name} 
-                  className="w-full h-full object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-700" 
-                  src={
-                    item.product.image?.startsWith('http') ? item.product.image : 
-                    item.product.image ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.image}` :
-                    (item.product.images && item.product.images[0]?.startsWith('http')) ? item.product.images[0] :
-                    (item.product.images && item.product.images[0]) ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.images[0]}` :
-                    'https://via.placeholder.com/400x300?text=No+Asset+Found'
-                  } 
+                   alt={item.product.name} 
+                   className="w-full h-full object-contain drop-shadow-2xl group-hover:scale-110 transition-transform duration-700" 
+                   src={
+                     item.product.image?.startsWith('http') ? item.product.image : 
+                     item.product.image ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.image}` :
+                     (item.product.images && item.product.images[0]?.startsWith('http')) ? item.product.images[0] :
+                     (item.product.images && item.product.images[0]) ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.images[0]}` :
+                     'https://via.placeholder.com/400x300?text=No+Asset+Found'
+                   } 
                 />
               </div>
               <div className="flex-grow flex flex-col justify-between h-full gap-6">
                 <div className="flex flex-col gap-2">
-                  <span className="text-[9px] font-black text-primary uppercase tracking-[0.3em] font-label">{item.product.brand}</span>
+                  <span className="text-[9px] font-black text-primary uppercase tracking-[0.4em] font-label">{item.product.brand}</span>
                   <div className="flex justify-between items-start">
-                    <h3 className="text-2xl font-black text-on-background italic tracking-tight font-headline uppercase">{item.product.name}</h3>
+                    <h3 className="text-2xl font-black text-on-background italic tracking-tight font-headline uppercase leading-tight">{item.product.name}</h3>
                     <div className="text-right">
-                       <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.2em] mb-1 font-label">Subtotal</p>
-                       <p className="text-2xl font-black text-on-background italic tracking-tighter font-headline">
+                       <p className="text-[8px] font-black text-on-surface-variant/30 uppercase tracking-[0.2em] mb-1 font-label">Subtotal Value</p>
+                       <p className="text-2xl font-bold text-on-background italic tracking-tighter font-headline">
                          ₹{(item.product.price * item.quantity).toLocaleString()}
                        </p>
                     </div>
@@ -87,26 +87,26 @@ const Cart = () => {
                 </div>
                 
                 <div className="flex items-center justify-between mt-4">
-                  <div className="flex items-center bg-surface-container rounded-xl border border-outline-variant overflow-hidden shadow-inner p-1">
+                  <div className="flex items-center bg-surface-container rounded-2xl border border-outline-variant/60 overflow-hidden p-1.5 shadow-inner">
                     <button 
                       onClick={() => handleUpdateQuantity(item.product._id, item.quantity - 1)}
-                      className="p-2 text-on-surface-variant hover:text-primary hover:bg-white rounded-lg transition-all active:scale-90"
+                      className="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-white rounded-xl transition-all active:scale-90"
                     >
                       <span className="material-symbols-outlined text-[18px]">remove</span>
                     </button>
                     <span className="px-5 text-sm font-black text-on-surface font-mono">{item.quantity}</span>
                     <button 
                       onClick={() => handleUpdateQuantity(item.product._id, item.quantity + 1)}
-                      className="p-2 text-on-surface-variant hover:text-primary hover:bg-white rounded-lg transition-all active:scale-90"
+                      className="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-white rounded-xl transition-all active:scale-90"
                     >
                       <span className="material-symbols-outlined text-[18px]">add</span>
                     </button>
                   </div>
                   <button 
                     onClick={() => handleRemoveItem(item.product._id)}
-                    className="text-on-surface-variant/40 hover:text-error transition-all font-black text-[10px] uppercase tracking-[0.3em] flex items-center gap-2 group/del"
+                    className="text-on-surface-variant/40 hover:text-error transition-all font-black text-[9px] uppercase tracking-[0.4em] flex items-center gap-3 group/del py-2 px-4 rounded-xl hover:bg-error/5"
                   >
-                    <span className="material-symbols-outlined text-[18px] group-hover/del:rotate-12 transition-transform">delete_sweep</span> 
+                    <span className="material-symbols-outlined text-[20px] group-hover/del:rotate-12 transition-transform">delete_outline</span> 
                     Release Unit
                   </button>
                 </div>
@@ -132,27 +132,30 @@ const Cart = () => {
 
         <div className="lg:col-span-4 relative z-10">
           <div className="bg-white border border-outline-variant rounded-[40px] p-10 flex flex-col gap-10 sticky top-32 shadow-2xl overflow-hidden group">
-             <div className="absolute top-0 left-0 w-full h-2 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
+             <div className="absolute top-0 left-0 w-full h-1.5 bg-primary/20"></div>
              
-            <h3 className="text-2xl font-black text-on-background italic tracking-tight border-b border-outline-variant pb-8 font-headline uppercase">Acquisition Protocol</h3>
-            <div className="flex flex-col gap-8">
+            <h3 className="text-2xl font-bold text-on-background italic tracking-tight border-b border-outline-variant pb-8 font-headline uppercase">Acquisition Summary</h3>
+            <div className="flex flex-col gap-7">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-[0.3em]">Net Unit Value</span>
-                <span className="text-lg font-black text-on-background italic tracking-tight font-headline">₹{subtotal.toLocaleString()}</span>
+                <span className="text-[10px] font-medium text-on-surface-variant tracking-[0.2em] uppercase">Net Unit Value</span>
+                <span className="text-lg font-bold text-on-background tracking-tight font-headline italic">₹{subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-[0.3em]">Strategic Logistics</span>
-                <span className="text-lg font-black text-on-background italic tracking-tight font-headline">₹{shipping.toLocaleString()}</span>
+                <span className="text-[10px] font-medium text-on-surface-variant tracking-[0.2em] uppercase">Delivery & Handling</span>
+                <span className="text-lg font-bold text-on-background tracking-tight font-headline italic">₹{shipping.toLocaleString()}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-[0.3em]">Reg. Tax (18% GST)</span>
-                <span className="text-lg font-black text-on-background italic tracking-tight font-headline">₹{tax.toLocaleString()}</span>
+                <span className="text-[10px] font-medium text-on-surface-variant tracking-[0.2em] uppercase">Regulatory Tax (18%)</span>
+                <span className="text-lg font-bold text-on-background tracking-tight font-headline italic">₹{tax.toLocaleString()}</span>
               </div>
             </div>
             
             <div className="flex flex-col gap-4 pt-10 border-t border-outline-variant relative z-10">
               <div className="flex justify-between items-end">
-                <span className="text-xs font-black text-on-background uppercase tracking-[0.4em] mb-2">Total Valuation</span>
+                <div className="flex flex-col gap-1">
+                  <span className="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-[0.3em]">Total</span>
+                  <span className="text-xs font-bold text-on-background uppercase tracking-[0.2em]">Valuation</span>
+                </div>
                 <span className="text-5xl font-black text-primary italic tracking-tighter font-headline leading-none">
                   ₹{total.toLocaleString()}
                 </span>
@@ -160,9 +163,9 @@ const Cart = () => {
             </div>
 
             {cartItems.length > 0 && (
-              <Link to="/checkout" className="w-full bg-primary text-on-primary font-black text-[11px] py-6 rounded-2xl flex justify-center items-center gap-5 hover:bg-primary-container transition-all shadow-xl group uppercase tracking-[0.4em] active:scale-[0.98] shadow-primary/20">
+              <Link to="/checkout" className="w-full bg-primary text-on-primary font-black text-[9px] py-6 rounded-2xl flex justify-center items-center gap-3 hover:bg-primary-container hover:shadow-primary/20 transition-all shadow-xl group uppercase tracking-[0.2em] active:scale-[0.98] whitespace-nowrap px-4">
                 Initiate Deployment 
-                <span className="material-symbols-outlined text-[24px] group-hover:translate-x-2 transition-transform">verified</span>
+                <span className="material-symbols-outlined text-[20px] group-hover:translate-x-2 transition-transform">verified</span>
               </Link>
             )}
           </div>

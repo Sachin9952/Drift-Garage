@@ -44,7 +44,7 @@ const ProductDetails = () => {
     addToCart(product, 1);
     setTimeout(() => {
       setAddingToCart(false);
-      alert('Unit assigned to your cargo manifest.');
+      navigate('/cart');
     }, 500);
   };
 

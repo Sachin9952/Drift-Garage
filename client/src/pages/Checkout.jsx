@@ -34,7 +34,7 @@ const Checkout = () => {
     return acc + item.product.price * item.quantity;
   }, 0);
 
-  const shipping = 150.00;
+  const shipping = 90.00;
   const tax = subtotal * 0.18;
   const total = subtotal + shipping + tax;
 
@@ -173,24 +173,24 @@ const Checkout = () => {
               form="checkout-form"
               type="submit"
               disabled={placingOrder}
-              className={`w-full sm:w-auto bg-primary text-on-primary font-black text-[11px] px-16 py-6 rounded-2xl shadow-xl hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center justify-center gap-5 uppercase tracking-[0.4em] ${placingOrder ? 'opacity-30 cursor-not-allowed' : ''}`}
+              className={`w-full sm:w-auto bg-primary text-on-primary font-black text-[9px] px-16 py-6 rounded-2xl shadow-xl hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center justify-center gap-4 uppercase tracking-[0.2em] ${placingOrder ? 'opacity-30 cursor-not-allowed' : ''}`}
             >
               {placingOrder ? 'EXECUTING...' : 'Confirm Authorization'} 
-              <span className="material-symbols-outlined text-[24px]">verified</span>
+              <span className="material-symbols-outlined text-[20px]">verified</span>
             </button>
           </div>
         </div>
 
         <div className="lg:col-span-5 xl:col-span-4 lg:sticky lg:top-32 relative z-10 animate-fade-in-up">
-          <div className="bg-surface-container border border-outline-variant rounded-[48px] p-10 md:p-12 shadow-sm flex flex-col gap-10">
-            <h3 className="text-2xl font-black text-on-background italic tracking-tight border-b border-outline-variant/20 pb-8 font-headline uppercase">Acquisition Recap</h3>
+          <div className="bg-white border border-outline-variant rounded-[48px] p-10 md:p-12 shadow-2xl flex flex-col gap-10">
+            <h3 className="text-2xl font-bold text-on-background italic tracking-tight border-b border-outline-variant/20 pb-8 font-headline uppercase">Acquisition Recap</h3>
             <div className="flex flex-col gap-6 max-h-[360px] overflow-y-auto custom-scrollbar pr-4">
               {cartItems.map(item => (
-                <div key={item.product._id} className="flex gap-6 items-center">
-                  <div className="w-20 h-20 rounded-[20px] bg-surface-container-lowest border border-outline-variant/60 overflow-hidden flex-shrink-0 flex items-center justify-center p-3">
+                <div key={item.product._id} className="flex gap-6 items-center group/item">
+                  <div className="w-20 h-20 rounded-[20px] bg-surface-container-lowest border border-outline-variant/60 overflow-hidden flex-shrink-0 flex items-center justify-center p-3 group-hover/item:bg-white transition-colors">
                     <img 
                       alt={item.product.name} 
-                      className="w-full h-full object-contain" 
+                      className="w-full h-full object-contain drop-shadow-lg" 
                       src={
                         item.product.image?.startsWith('http') ? item.product.image : 
                         item.product.image ? `${import.meta.env.VITE_API_URL || 'http://localhost:5000'}${item.product.image}` :
@@ -201,32 +201,35 @@ const Checkout = () => {
                     />
                   </div>
                   <div className="flex-grow">
-                    <h4 className="text-base font-black text-on-background italic tracking-tight font-headline line-clamp-1">{item.product.name}</h4>
-                    <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-widest mt-1.5 block">Qty: {item.quantity}</span>
+                    <h4 className="text-base font-bold text-on-background italic tracking-tight font-headline line-clamp-1">{item.product.name}</h4>
+                    <span className="text-[10px] font-medium text-on-surface-variant uppercase tracking-widest mt-1 block opacity-60">Qty: {item.quantity}</span>
                   </div>
-                  <span className="text-base font-black text-on-background italic tracking-tighter font-headline">₹{(item.product.price * item.quantity).toLocaleString()}</span>
+                  <span className="text-base font-bold text-on-background italic tracking-tighter font-headline">₹{(item.product.price * item.quantity).toLocaleString()}</span>
                 </div>
               ))}
             </div>
             
             <div className="flex flex-col gap-5 pt-10 border-t border-outline-variant/20">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Net Unit Value</span>
-                <span className="text-base font-black text-on-background italic tracking-tight font-headline">₹{subtotal.toLocaleString()}</span>
+                <span className="text-[10px] font-medium text-on-surface-variant uppercase tracking-[0.2em]">Net Unit Value</span>
+                <span className="text-base font-bold text-on-background italic tracking-tight font-headline">₹{subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Deployment Fee</span>
-                <span className="text-base font-black text-on-background italic tracking-tight font-headline">₹{shipping.toLocaleString()}</span>
+                <span className="text-[10px] font-medium text-on-surface-variant uppercase tracking-[0.2em]">Deployment Fee</span>
+                <span className="text-base font-bold text-on-background italic tracking-tight font-headline">₹{shipping.toLocaleString()}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Security Tax (GST)</span>
-                <span className="text-base font-black text-on-background italic tracking-tight font-headline">₹{tax.toLocaleString()}</span>
+                <span className="text-[10px] font-medium text-on-surface-variant uppercase tracking-[0.2em]">Security Tax (GST)</span>
+                <span className="text-base font-bold text-on-background italic tracking-tight font-headline">₹{tax.toLocaleString()}</span>
               </div>
             </div>
             
             <div className="flex justify-between items-center pt-10 border-t border-outline-variant">
-              <span className="text-xs font-black text-on-background uppercase tracking-[0.3em]">Total Clearance</span>
-              <span className="text-3xl font-black text-primary italic tracking-tighter font-headline">₹{total.toLocaleString()}</span>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-black text-on-surface-variant/40 uppercase tracking-[0.3em]">Total</span>
+                <span className="text-xs font-bold text-on-background uppercase tracking-[0.2em]">Clearance</span>
+              </div>
+              <span className="text-4xl font-black text-primary italic tracking-tighter font-headline">₹{total.toLocaleString()}</span>
             </div>
           </div>
         </div>
