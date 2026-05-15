@@ -1,70 +1,62 @@
 const Order = require('../models/Order');
 
-// @desc    Create new order
-// @route   POST /api/orders
-// @access  Private
-const addOrderItems = async (req, res) => {
-  const {
-    orderItems,
-    shippingAddress,
-    paymentMethod,
-    totalPrice,
-  } = req.body;
+// @desc    Create new order (Guest)
+// @route   POST /api/orders/place-order
+// @access  Public
+const placeOrder = async (req, res) => {
+  try {
+    const { customerDetails, items, totalAmount } = req.body;
 
-  if (orderItems && orderItems.length === 0) {
-    res.status(400);
-    throw new Error('No order items');
-  } else {
+    if (!items || items.length === 0) {
+      return res.status(400).json({ message: 'No order items' });
+    }
+
     const order = new Order({
-      user: req.user._id,
-      items: orderItems,
-      shippingAddress,
-      paymentMethod,
-      totalAmount: totalPrice,
+      customerDetails,
+      items,
+      totalAmount,
     });
 
     const createdOrder = await order.save();
     res.status(201).json(createdOrder);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-// @desc    Get logged in user orders
-// @route   GET /api/orders/my-orders
-// @access  Private
-const getMyOrders = async (req, res) => {
-  const orders = await Order.find({ user: req.user._id }).populate('items.product');
-  res.json(orders);
-};
-
 // @desc    Get all orders
-// @route   GET /api/orders/admin/all
-// @access  Private/Admin
+// @route   GET /api/admin/orders
+// @access  Public (Admin)
 const getOrders = async (req, res) => {
-  const orders = await Order.find({}).populate('user', 'id name');
-  res.json(orders);
+  try {
+    const orders = await Order.find({}).sort({ createdAt: -1 });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 // @desc    Update order status
-// @route   PUT /api/orders/admin/:id/status
-// @access  Private/Admin
+// @route   PUT /api/admin/orders/:id/status
+// @access  Public (Admin)
 const updateOrderStatus = async (req, res) => {
-  const order = await Order.findById(req.params.id);
+  try {
+    const order = await Order.findById(req.params.id);
 
-  if (order) {
-    order.orderStatus = req.body.status || order.orderStatus;
-    order.paymentStatus = req.body.paymentStatus || order.paymentStatus;
-
-    const updatedOrder = await order.save();
-    res.json(updatedOrder);
-  } else {
-    res.status(404);
-    throw new Error('Order not found');
+    if (order) {
+      order.orderStatus = req.body.status || order.orderStatus;
+      const updatedOrder = await order.save();
+      res.json(updatedOrder);
+    } else {
+      res.status(404).json({ message: 'Order not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
 module.exports = {
-  addOrderItems,
-  getMyOrders,
+  placeOrder,
   getOrders,
   updateOrderStatus,
 };

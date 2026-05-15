@@ -1,55 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import API from '../api/axios';
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const ProductCard = ({ product, isGarage, onRemove }) => {
-  const { _id, brand, name, price, discountPrice, images, isFeatured, stock } = product;
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const [isWishlisted, setIsWishlisted] = useState(isGarage); 
-  const [loading, setLoading] = useState(false);
-  const image = images && images.length > 0 ? images[0] : 'https://via.placeholder.com/300x200?text=No+Image';
-
-  useEffect(() => {
-    const checkStatus = async () => {
-      if (!user || isGarage) return;
-      try {
-        const { data } = await API.get('/wishlist');
-        const found = data.products.some(p => p._id === _id);
-        setIsWishlisted(found);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    checkStatus();
-  }, [_id, user, isGarage]);
-
-  const handleWishlist = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      if (isWishlisted) {
-        await API.delete(`/wishlist/${_id}`);
-        setIsWishlisted(false);
-        if (onRemove) onRemove(); 
-      } else {
-        await API.post(`/wishlist/${_id}`);
-        setIsWishlisted(true);
-      }
-    } catch (err) {
-      console.error('Wishlist action failed', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+const ProductCard = ({ product }) => {
+  const { _id, brand, name, price, image, isFeatured, stock } = product;
+  
+  const displayImage = image?.startsWith('http') ? image : 
+                       (product.images && product.images[0]?.startsWith('http')) ? product.images[0] :
+                       'https://via.placeholder.com/400x300?text=No+Asset+Found';
 
   return (
     <Link to={`/product/${_id}`} className="group flex flex-col h-full bg-white border border-outline-variant rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
@@ -58,7 +15,7 @@ const ProductCard = ({ product, isGarage, onRemove }) => {
         <img 
           alt={name} 
           className="w-full h-full object-contain drop-shadow-lg group-hover:scale-105 transition-transform duration-1000 ease-out" 
-          src={image}
+          src={displayImage}
         />
         
         {/* Badges Overlay */}
@@ -68,23 +25,7 @@ const ProductCard = ({ product, isGarage, onRemove }) => {
               Featured
             </span>
           )}
-          {discountPrice > 0 && (
-            <span className="bg-error text-on-error px-3 py-1 rounded-lg text-[8px] font-black uppercase tracking-[0.2em] border border-error-container shadow-sm">
-              Sale
-            </span>
-          )}
         </div>
-
-        {/* Favorite Button Overlay */}
-        <button 
-          onClick={handleWishlist}
-          disabled={loading}
-          className={`absolute top-4 right-4 z-20 backdrop-blur-md border border-outline-variant p-2.5 rounded-xl transition-all active:scale-90 shadow-sm ${isWishlisted ? 'text-error border-error-container bg-error/10' : 'bg-surface/40 text-on-surface-variant hover:text-error hover:bg-white hover:border-error-container'}`}
-        >
-          <span className={`material-symbols-outlined text-[18px] transition-all ${isWishlisted ? 'filled-icon' : ''}`}>
-            {isGarage ? 'delete' : 'favorite'}
-          </span>
-        </button>
       </div>
 
       {/* Product Details */}
@@ -103,14 +44,9 @@ const ProductCard = ({ product, isGarage, onRemove }) => {
         {/* Pricing & Stock Grid */}
         <div className="grid grid-cols-2 gap-4 items-end">
           <div className="flex flex-col gap-1">
-            <p className="text-[8px] font-black text-on-surface-variant/60 uppercase tracking-[0.2em] font-label">
-              {discountPrice > 0 ? 'Offer Valuation' : 'Market Valuation'}
-            </p>
+            <p className="text-[8px] font-black text-on-surface-variant/60 uppercase tracking-[0.2em] font-label">Market Valuation</p>
             <div className="flex flex-wrap items-baseline gap-2">
-              <p className="text-2xl font-black text-on-background italic tracking-tighter font-headline">₹{discountPrice > 0 ? discountPrice.toLocaleString() : price.toLocaleString()}</p>
-              {discountPrice > 0 && (
-                <p className="text-[10px] text-on-surface-variant/40 line-through font-bold font-mono">₹{price.toLocaleString()}</p>
-              )}
+              <p className="text-2xl font-black text-on-background italic tracking-tighter font-headline">₹{price.toLocaleString()}</p>
             </div>
           </div>
           <div className="flex flex-col gap-1 items-end">

@@ -1,52 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import API from '../api/axios';
+import { getCart, removeFromCart, updateCartQuantity } from '../utils/cartUtils';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const fetchCart = async () => {
-    setLoading(true);
-    try {
-      const { data } = await API.get('/cart');
-      setCartItems(data.items || []);
-      setError(null);
-    } catch (err) {
-      setError('System Failure: Unable to inspect cargo data.');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
+  const fetchCart = () => {
+    setCartItems(getCart());
+    setLoading(false);
   };
 
   useEffect(() => {
     fetchCart();
+    window.addEventListener('cartUpdate', fetchCart);
+    return () => window.removeEventListener('cartUpdate', fetchCart);
   }, []);
 
-  const updateQuantity = async (productId, newQty) => {
-    if (newQty < 1) return;
-    try {
-      await API.put(`/cart/${productId}`, { quantity: newQty });
-      fetchCart();
-    } catch (err) {
-      alert('Failed to update quantity');
-    }
+  const handleUpdateQuantity = (productId, newQty) => {
+    updateCartQuantity(productId, newQty);
   };
 
-  const removeItem = async (productId) => {
-    try {
-      await API.delete(`/cart/${productId}`);
-      fetchCart();
-    } catch (err) {
-      alert('Failed to remove item');
-    }
+  const handleRemoveItem = (productId) => {
+    removeFromCart(productId);
   };
 
   const subtotal = cartItems.reduce((acc, item) => {
-    const price = item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price;
-    return acc + price * item.quantity;
+    return acc + item.product.price * item.quantity;
   }, 0);
 
   const shipping = cartItems.length > 0 ? 150.00 : 0;
@@ -67,17 +47,11 @@ const Cart = () => {
           <h1 className="text-4xl md:text-6xl font-black text-on-background tracking-tighter italic brand-logo uppercase leading-none">Your Cargo</h1>
           <p className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-[0.4em] mt-4">Reviewing {cartItems.length} units scheduled for deployment.</p>
         </div>
-        <div className="mt-10 md:mt-0 flex items-center gap-4 bg-white border border-outline-variant rounded-2xl px-6 py-4 shadow-sm">
-           <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-           <span className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">Protocol: Secure Access</span>
-        </div>
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 relative">
-        {/* Subtle background decorative element */}
         <div className="absolute top-20 left-0 w-96 h-96 bg-primary/5 blur-[120px] rounded-full pointer-events-none"></div>
 
-        {/* Cart Items */}
         <div className="lg:col-span-8 flex flex-col gap-10 relative z-10">
           {cartItems.map((item, index) => (
             <div 
@@ -89,7 +63,7 @@ const Cart = () => {
                 <img 
                   alt={item.product.name} 
                   className="w-full h-full object-contain drop-shadow-md group-hover:scale-110 transition-transform duration-700" 
-                  src={item.product.images?.[0] || 'https://via.placeholder.com/100'} 
+                  src={item.product.image.startsWith('http') ? item.product.image : `${import.meta.env.VITE_API_URL || ''}${item.product.image}`} 
                 />
               </div>
               <div className="flex-grow flex flex-col justify-between h-full gap-6">
@@ -100,7 +74,7 @@ const Cart = () => {
                     <div className="text-right">
                        <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.2em] mb-1 font-label">Subtotal</p>
                        <p className="text-2xl font-black text-on-background italic tracking-tighter font-headline">
-                         ₹{((item.product.discountPrice > 0 ? item.product.discountPrice : item.product.price) * item.quantity).toLocaleString()}
+                         ₹{(item.product.price * item.quantity).toLocaleString()}
                        </p>
                     </div>
                   </div>
@@ -109,21 +83,21 @@ const Cart = () => {
                 <div className="flex items-center justify-between mt-4">
                   <div className="flex items-center bg-surface-container rounded-xl border border-outline-variant overflow-hidden shadow-inner p-1">
                     <button 
-                      onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
+                      onClick={() => handleUpdateQuantity(item.product._id, item.quantity - 1)}
                       className="p-2 text-on-surface-variant hover:text-primary hover:bg-white rounded-lg transition-all active:scale-90"
                     >
                       <span className="material-symbols-outlined text-[18px]">remove</span>
                     </button>
                     <span className="px-5 text-sm font-black text-on-surface font-mono">{item.quantity}</span>
                     <button 
-                      onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                      onClick={() => handleUpdateQuantity(item.product._id, item.quantity + 1)}
                       className="p-2 text-on-surface-variant hover:text-primary hover:bg-white rounded-lg transition-all active:scale-90"
                     >
                       <span className="material-symbols-outlined text-[18px]">add</span>
                     </button>
                   </div>
                   <button 
-                    onClick={() => removeItem(item.product._id)}
+                    onClick={() => handleRemoveItem(item.product._id)}
                     className="text-on-surface-variant/40 hover:text-error transition-all font-black text-[10px] uppercase tracking-[0.3em] flex items-center gap-2 group/del"
                   >
                     <span className="material-symbols-outlined text-[18px] group-hover/del:rotate-12 transition-transform">delete_sweep</span> 
@@ -150,7 +124,6 @@ const Cart = () => {
           )}
         </div>
 
-        {/* Summary */}
         <div className="lg:col-span-4 relative z-10">
           <div className="bg-white border border-outline-variant rounded-[40px] p-10 flex flex-col gap-10 sticky top-32 shadow-2xl overflow-hidden group">
              <div className="absolute top-0 left-0 w-full h-2 bg-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
@@ -186,11 +159,6 @@ const Cart = () => {
                 <span className="material-symbols-outlined text-[24px] group-hover:translate-x-2 transition-transform">verified</span>
               </Link>
             )}
-            
-            <div className="flex items-center justify-center gap-4 mt-2 text-on-surface-variant/40 text-[9px] font-black uppercase tracking-[0.4em]">
-                <span className="material-symbols-outlined text-lg">shield</span>
-                Encrypted Transaction protocol active
-            </div>
           </div>
         </div>
       </div>

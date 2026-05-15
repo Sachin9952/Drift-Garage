@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const location = useLocation();
-  const navigate = useNavigate();
-  const { user, logout } = useAuth();
-  const [showDropdown, setShowDropdown] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Lock scroll when mobile menu is open
@@ -20,18 +16,9 @@ const Navbar = () => {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
+    { name: 'Home', path: '/' },
     { name: 'Shop', path: '/shop' },
-    { name: 'Garage', path: '/wishlist' },
   ];
-
-  const handleLogout = () => {
-    if (window.confirm('Are you sure you want to exit the garage?')) {
-      logout();
-      navigate('/login');
-      setShowDropdown(false);
-      setIsMobileMenuOpen(false);
-    }
-  };
 
   return (
     <>
@@ -62,105 +49,9 @@ const Navbar = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-4 md:gap-8">
-            <button className="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full active:scale-95 hidden sm:block">
-              <span className="material-symbols-outlined text-[24px]">search</span>
-            </button>
-            
             <Link to="/cart" className="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full active:scale-95 relative">
               <span className="material-symbols-outlined text-[24px]">shopping_cart</span>
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-error text-on-error text-[9px] rounded-full flex items-center justify-center font-black">2</span>
             </Link>
-
-            {/* User Profile (Desktop) */}
-            <div className="hidden md:block relative">
-                {user ? (
-                  <div className="relative">
-                    <button 
-                      onClick={() => setShowDropdown(!showDropdown)}
-                      className="h-12 w-12 rounded-2xl bg-surface-container border border-outline-variant hover:border-primary transition-all overflow-hidden flex items-center justify-center group shadow-sm"
-                    >
-                      {user.avatar ? (
-                        <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
-                      ) : (
-                        <span className="material-symbols-outlined text-[24px] text-on-surface-variant group-hover:text-primary transition-colors">person</span>
-                      )}
-                    </button>
-                    
-                    {showDropdown && (
-                      <div className="absolute right-0 mt-5 w-80 bg-surface-container-lowest border border-outline-variant rounded-[32px] shadow-2xl z-[70] animate-fade-in overflow-hidden">
-                        {/* Dropdown Header: User Info */}
-                        <div className="px-8 py-7 bg-surface-container-low/40 border-b border-outline-variant/30">
-                          <p className="text-xs font-black text-on-background font-headline italic leading-none uppercase tracking-tight">{user.name}</p>
-                          <p className="text-[9px] text-on-surface-variant/50 uppercase tracking-[0.4em] font-black mt-3">Personnel ID: #{user._id.slice(-6).toUpperCase()}</p>
-                          <div className="mt-4 flex items-center gap-3">
-                             <span className="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(74,124,89,0.3)]"></span>
-                             <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em]">{user.role} Access Level</span>
-                          </div>
-                        </div>
-
-                        {/* Dropdown Menu Items */}
-                        <div className="py-3 px-3">
-                          <Link 
-                            to="/my-orders" 
-                            onClick={() => setShowDropdown(false)}
-                            className="flex items-center gap-5 px-6 py-4 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-2xl transition-all group/item"
-                          >
-                            <span className="material-symbols-outlined text-[22px] group-hover/item:scale-110 transition-transform">receipt_long</span>
-                            <div className="flex flex-col">
-                                <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">My Orders</span>
-                                <span className="text-[8px] font-medium text-on-surface-variant/40 uppercase tracking-widest mt-0.5">Deployment Registry</span>
-                            </div>
-                          </Link>
-
-                          <Link 
-                            to="/settings" 
-                            onClick={() => setShowDropdown(false)}
-                            className="flex items-center gap-5 px-6 py-4 text-on-surface-variant hover:bg-surface-container-low hover:text-primary rounded-2xl transition-all group/item"
-                          >
-                            <span className="material-symbols-outlined text-[22px] group-hover/item:scale-110 transition-transform">settings</span>
-                            <div className="flex flex-col">
-                                <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">Account Settings</span>
-                                <span className="text-[8px] font-medium text-on-surface-variant/40 uppercase tracking-widest mt-0.5">Security Protocol</span>
-                            </div>
-                          </Link>
-
-                          {user.role === 'admin' && (
-                            <Link 
-                              to="/admin" 
-                              onClick={() => setShowDropdown(false)}
-                              className="flex items-center gap-5 px-6 py-4 text-on-surface-variant hover:bg-primary/5 hover:text-primary rounded-2xl transition-all group/item border border-transparent hover:border-primary/20"
-                            >
-                              <span className="material-symbols-outlined text-[22px] group-hover/item:scale-110 transition-transform">terminal</span>
-                              <div className="flex flex-col">
-                                  <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">Command Center</span>
-                                  <span className="text-[8px] font-medium text-primary/60 uppercase tracking-widest mt-0.5">Administrative Override</span>
-                              </div>
-                            </Link>
-                          )}
-                        </div>
-
-                        {/* Dropdown Footer: Logout */}
-                        <div className="px-3 pb-3 pt-1 border-t border-outline-variant/20">
-                          <button 
-                            onClick={handleLogout}
-                            className="w-full flex items-center gap-5 px-6 py-4 text-error hover:bg-error-container/10 rounded-2xl transition-all group/item"
-                          >
-                            <span className="material-symbols-outlined text-[22px] group-hover/item:translate-x-1 transition-transform">logout</span>
-                            <div className="flex flex-col text-left">
-                                <span className="text-[11px] font-black uppercase tracking-[0.2em] font-label">Terminate Session</span>
-                                <span className="text-[8px] font-medium text-error/40 uppercase tracking-widest mt-0.5">Secure Exit</span>
-                            </div>
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link to="/login" className="h-12 w-12 rounded-2xl bg-surface-container border border-outline-variant hover:border-primary transition-all flex items-center justify-center text-on-surface-variant group shadow-sm">
-                    <span className="material-symbols-outlined text-[24px] group-hover:text-primary transition-colors">person</span>
-                  </Link>
-                )}
-            </div>
 
             {/* Mobile Menu Toggle */}
             <button 
@@ -173,7 +64,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Drawer (Moved outside Nav restricted height) */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <>
           <div 
@@ -196,22 +87,8 @@ const Navbar = () => {
 
             {/* Content */}
             <div className="flex-1 overflow-y-auto px-8 py-10 space-y-10">
-              {/* User Identity */}
-              {user && (
-                <div className="flex items-center gap-5 p-6 bg-surface-container-low rounded-3xl border border-outline-variant/30">
-                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary border border-primary-container overflow-hidden">
-                        {user.avatar ? <img src={user.avatar} className="w-full h-full object-cover" /> : <span className="material-symbols-outlined text-[28px]">person</span>}
-                    </div>
-                    <div>
-                        <p className="text-base font-black text-on-background font-headline italic leading-none">{user.name}</p>
-                        <p className="text-[10px] text-primary uppercase tracking-widest font-black mt-2">{user.role}</p>
-                    </div>
-                </div>
-              )}
-
-              {/* Navigation Group */}
               <div className="space-y-4">
-                <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.5em] px-2 font-label">Registry</p>
+                <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.5em] px-2 font-label">Navigation</p>
                 <div className="space-y-2">
                   {navLinks.map((link) => (
                     <Link 
@@ -224,62 +101,17 @@ const Navbar = () => {
                       <span className="material-symbols-outlined text-[18px] opacity-20">east</span>
                     </Link>
                   ))}
-                  {user && (
-                    <>
-                      <p className="text-[9px] font-black text-on-surface-variant/40 uppercase tracking-[0.5em] px-2 pt-6 font-label">Account</p>
-                      <Link 
-                        to="/my-orders" 
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-on-background uppercase tracking-[0.3em] font-label"
-                      >
-                        My Orders
-                        <span className="material-symbols-outlined text-[18px]">receipt_long</span>
-                      </Link>
-                      <Link 
-                        to="/settings" 
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-on-background uppercase tracking-[0.3em] font-label"
-                      >
-                        Account Settings
-                        <span className="material-symbols-outlined text-[18px]">settings</span>
-                      </Link>
-                    </>
-                  )}
-                  {user?.role === 'admin' && (
-                    <Link 
-                      to="/admin" 
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="flex items-center justify-between px-6 py-5 rounded-2xl bg-primary/5 border border-primary/20 text-[11px] font-black text-primary uppercase tracking-[0.3em] font-label"
-                    >
-                      Command Center
-                      <span className="material-symbols-outlined text-[18px]">dashboard</span>
-                    </Link>
-                  )}
+                  <Link 
+                    to="/admin" 
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-on-background uppercase tracking-[0.3em] font-label"
+                  >
+                    Admin Access
+                    <span className="material-symbols-outlined text-[18px] opacity-20">admin_panel_settings</span>
+                  </Link>
                 </div>
               </div>
-
-              {!user && (
-                  <Link 
-                    to="/login" 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-4 w-full p-5 bg-primary text-on-primary rounded-2xl text-[11px] font-black uppercase tracking-[0.3em] font-label shadow-lg shadow-primary/20 justify-center"
-                  >
-                      <span className="material-symbols-outlined text-[20px]">login</span> Authenticate
-                  </Link>
-              )}
             </div>
-
-            {/* Footer */}
-            {user && (
-                <div className="p-8 border-t border-outline-variant">
-                    <button 
-                        onClick={handleLogout}
-                        className="w-full flex items-center gap-4 px-6 py-5 text-error bg-error-container/10 border border-error/20 rounded-2xl text-[11px] font-black uppercase tracking-[0.3em] font-label active:scale-95 transition-all justify-center"
-                    >
-                        <span className="material-symbols-outlined text-[20px]">logout</span> Terminate Session
-                    </button>
-                </div>
-            )}
           </aside>
         </>
       )}

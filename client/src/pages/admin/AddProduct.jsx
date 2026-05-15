@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import API from '../../api/axios';
 
 const AddProduct = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const isEdit = !!id;
+
   const [loading, setLoading] = useState(false);
+  const [fetching, setFetching] = useState(isEdit);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -13,19 +17,46 @@ const AddProduct = () => {
     brand: '',
     category: '',
     price: '',
-    discountPrice: '',
     description: '',
-    imageUrl: '',
     stock: '',
-    isFeatured: false
   });
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState('');
+
+  useEffect(() => {
+    if (isEdit) {
+      const fetchProduct = async () => {
+        try {
+          const { data } = await API.get(`/products/${id}`);
+          setFormData({
+            name: data.name,
+            brand: data.brand,
+            category: data.category,
+            price: data.price,
+            description: data.description,
+            stock: data.stock,
+          });
+          setPreview(data.image?.startsWith('http') ? data.image : `${import.meta.env.VITE_API_URL || ''}${data.image || ''}`);
+        } catch (err) {
+          setError('Failed to fetch asset data.');
+        } finally {
+          setFetching(false);
+        }
+      };
+      fetchProduct();
+    }
+  }, [id, isEdit]);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setPreview(URL.createObjectURL(file));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -34,93 +65,89 @@ const AddProduct = () => {
     setError('');
     setSuccess('');
 
-    try {
-      const productData = {
-        ...formData,
-        price: Number(formData.price),
-        discountPrice: Number(formData.discountPrice || 0),
-        stock: Number(formData.stock),
-        images: [formData.imageUrl]
-      };
+    const data = new FormData();
+    data.append('name', formData.name);
+    data.append('brand', formData.brand);
+    data.append('category', formData.category);
+    data.append('price', formData.price);
+    data.append('description', formData.description);
+    data.append('stock', formData.stock);
+    if (image) data.append('image', image);
 
-      await API.post('/admin/products', productData);
-      
-      setSuccess('Asset Successfully Commissioned to Vault.');
-      setFormData({
-        name: '',
-        brand: '',
-        category: '',
-        price: '',
-        discountPrice: '',
-        description: '',
-        imageUrl: '',
-        stock: '',
-        isFeatured: false
-      });
-      
-      setTimeout(() => navigate('/admin/products'), 2000);
+    try {
+      if (isEdit) {
+        await API.put(`/admin/edit-product/${id}`, data, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        setSuccess('Asset Successfully Updated.');
+      } else {
+        await API.post('/admin/add-product', data, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        setSuccess('Asset Successfully Commissioned.');
+      }
+      setTimeout(() => navigate('/admin/products'), 1500);
     } catch (err) {
-      setError(err.response?.data?.message || 'Protocol Failure. Authentication check required.');
+      setError(err.response?.data?.message || 'Protocol Failure.');
     } finally {
       setLoading(false);
     }
   };
 
+  if (fetching) return (
+    <div className="flex flex-col items-center justify-center min-h-[400px] gap-6">
+        <div className="w-14 h-14 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+        <p className="text-[10px] font-black text-primary uppercase tracking-[0.4em]">Retrieving Asset Data...</p>
+    </div>
+  );
+
   return (
-    <div className="max-w-4xl mx-auto animate-fade-in-up">
-      <div className="flex items-center gap-8 mb-12">
+    <div className="max-w-4xl mx-auto animate-fade-in-up pb-20">
+      <div className="flex items-center gap-6 mb-10">
         <button 
             onClick={() => navigate('/admin/products')} 
-            className="w-14 h-14 flex items-center justify-center bg-surface-container border border-outline-variant rounded-2xl text-on-surface-variant hover:text-primary hover:bg-white hover:border-primary-container transition-all active:scale-95 shadow-sm"
+            className="w-12 h-12 flex items-center justify-center bg-surface-container border border-outline-variant rounded-xl text-on-surface-variant hover:text-primary transition-all active:scale-95 shadow-sm"
         >
-          <span className="material-symbols-outlined text-[28px]">arrow_back_ios_new</span>
+          <span className="material-symbols-outlined text-2xl">arrow_back</span>
         </button>
         <div>
-            <h2 className="text-4xl font-black text-on-background italic tracking-tighter brand-logo uppercase leading-none mb-2">New Commission</h2>
-            <p className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.3em]">Initiating asset registration protocol.</p>
+            <h2 className="text-3xl font-black italic tracking-tighter brand-logo uppercase leading-none mb-1">{isEdit ? 'Edit Asset' : 'New Commission'}</h2>
+            <p className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.2em]">Initiating registration protocol.</p>
         </div>
       </div>
 
-      <div className="bg-surface-container-lowest border border-outline-variant rounded-[48px] p-12 md:p-20 relative overflow-hidden shadow-sm group">
-        {/* Design Grid Background */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(74,124,89,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(74,124,89,0.03)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-        
+      <div className="bg-surface-container-lowest border border-outline-variant rounded-[40px] p-8 md:p-12 relative overflow-hidden shadow-sm">
         {error && (
-          <div className="mb-12 p-6 bg-error-container/10 border border-error/20 text-error rounded-2xl flex items-center gap-5 animate-shake">
-            <span className="material-symbols-outlined text-[24px]">gpp_maybe</span>
-            <p className="text-[11px] font-black uppercase tracking-widest leading-relaxed">{error}</p>
+          <div className="mb-8 p-5 bg-error-container/10 border border-error/20 text-error rounded-2xl flex items-center gap-4 animate-shake">
+            <span className="material-symbols-outlined text-xl">warning</span>
+            <p className="text-[10px] font-black uppercase tracking-widest">{error}</p>
           </div>
         )}
 
         {success && (
-          <div className="mb-12 p-6 bg-primary/5 border border-primary-container/30 text-primary rounded-2xl flex items-center gap-5 animate-fade-in">
-            <span className="material-symbols-outlined text-[24px]">verified</span>
-            <p className="text-[11px] font-black uppercase tracking-widest leading-relaxed">{success}</p>
+          <div className="mb-8 p-5 bg-primary/5 border border-primary-container/30 text-primary rounded-2xl flex items-center gap-4 animate-fade-in">
+            <span className="material-symbols-outlined text-xl">verified</span>
+            <p className="text-[10px] font-black uppercase tracking-widest">{success}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-12 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
-            {/* Title/Name */}
-            <div className="space-y-4 group/input">
-              <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Asset Designation</label>
-              <div className="relative">
-                <input 
-                  type="text" 
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  placeholder="EX: CUSTOM '67 CAMARO"
-                  className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-2xl py-5 px-8 text-sm font-bold text-on-surface outline-none transition-all placeholder:text-on-surface-variant/30 font-headline italic"
-                />
-              </div>
+        <form onSubmit={handleSubmit} className="space-y-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-3">
+              <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.3em] ml-2 font-label">Asset Designation</label>
+              <input 
+                type="text" 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                placeholder="EX: CUSTOM '67 CAMARO"
+                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-xl py-4 px-6 text-sm font-bold outline-none transition-all placeholder:text-on-surface-variant/30 font-headline italic"
+              />
             </div>
 
-            {/* Brand */}
-            <div className="space-y-4 group/input">
-              <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Manufacturing Origin</label>
+            <div className="space-y-3">
+              <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.3em] ml-2 font-label">Manufacturing Origin</label>
               <input 
                 type="text" 
                 name="brand"
@@ -128,52 +155,43 @@ const AddProduct = () => {
                 onChange={handleChange}
                 required
                 placeholder="EX: HOT WHEELS"
-                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-2xl py-5 px-8 text-sm font-bold text-on-surface outline-none transition-all placeholder:text-on-surface-variant/30 font-headline italic"
+                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-xl py-4 px-6 text-sm font-bold outline-none transition-all placeholder:text-on-surface-variant/30 font-headline italic"
               />
             </div>
 
-            {/* Category */}
-            <div className="space-y-4 group/input">
-              <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Strategic Class</label>
-              <div className="relative group/select">
-                <select 
-                  name="category"
-                  value={formData.category}
-                  onChange={handleChange}
-                  required
-                  className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-2xl py-5 px-8 text-sm font-bold text-on-surface outline-none transition-all cursor-pointer appearance-none font-headline italic pr-12"
-                >
-                  <option value="">SELECT CLASS</option>
-                  <option value="Muscle">MUSCLE</option>
-                  <option value="Exotic">EXOTIC</option>
-                  <option value="JDM">JDM</option>
-                  <option value="Classic">CLASSIC</option>
-                  <option value="Special Edition">SPECIAL OPS</option>
-                </select>
-                <span className="material-symbols-outlined absolute right-5 top-1/2 -translate-y-1/2 text-on-surface-variant/40 pointer-events-none group-focus-within/select:text-primary transition-colors">expand_more</span>
-              </div>
+            <div className="space-y-3">
+              <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.3em] ml-2 font-label">Strategic Class</label>
+              <select 
+                name="category"
+                value={formData.category}
+                onChange={handleChange}
+                required
+                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-xl py-4 px-6 text-sm font-bold outline-none transition-all cursor-pointer font-headline italic"
+              >
+                <option value="">SELECT CLASS</option>
+                <option value="Muscle">MUSCLE</option>
+                <option value="Exotic">EXOTIC</option>
+                <option value="JDM">JDM</option>
+                <option value="Classic">CLASSIC</option>
+                <option value="Special Edition">SPECIAL OPS</option>
+              </select>
             </div>
 
-            {/* Price */}
-            <div className="space-y-4 group/input">
-              <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Net Valuation (INR)</label>
-              <div className="relative">
-                <span className="absolute left-8 top-1/2 -translate-y-1/2 text-primary font-black italic text-lg">₹</span>
-                <input 
-                  type="number" 
-                  name="price"
-                  value={formData.price}
-                  onChange={handleChange}
-                  required
-                  placeholder="0.00"
-                  className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-2xl py-5 pl-14 pr-8 text-lg font-black text-on-surface outline-none transition-all placeholder:text-on-surface-variant/30 font-mono tracking-tighter italic"
-                />
-              </div>
+            <div className="space-y-3">
+              <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.3em] ml-2 font-label">Net Valuation (INR)</label>
+              <input 
+                type="number" 
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                required
+                placeholder="0.00"
+                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-xl py-4 px-6 text-sm font-bold outline-none transition-all font-mono italic"
+              />
             </div>
 
-            {/* Stock */}
-            <div className="space-y-4 group/input">
-              <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Available Capacity</label>
+            <div className="space-y-3">
+              <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.3em] ml-2 font-label">Available Capacity</label>
               <input 
                 type="number" 
                 name="stock"
@@ -181,70 +199,48 @@ const AddProduct = () => {
                 onChange={handleChange}
                 required
                 placeholder="QUANTITY"
-                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-2xl py-5 px-8 text-sm font-bold text-on-surface outline-none transition-all placeholder:text-on-surface-variant/30 font-headline italic"
+                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-xl py-4 px-6 text-sm font-bold outline-none transition-all font-headline italic"
               />
             </div>
 
-            {/* Image URL */}
-            <div className="space-y-4 group/input">
-              <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Visual Data Link</label>
-              <input 
-                type="url" 
-                name="imageUrl"
-                value={formData.imageUrl}
-                onChange={handleChange}
-                required
-                placeholder="HTTPS://ACQUISITION.DATA/LINK"
-                className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-2xl py-5 px-8 text-sm font-bold text-on-surface outline-none transition-all placeholder:text-on-surface-variant/30 font-headline italic"
-              />
+            <div className="space-y-3">
+              <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.3em] ml-2 font-label">Visual Capture</label>
+              <div className="flex items-center gap-6">
+                <label className="flex-1 bg-surface-container border border-outline-variant border-dashed rounded-xl p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-white transition-all group">
+                  <span className="material-symbols-outlined text-on-surface-variant/40 group-hover:text-primary transition-colors">cloud_upload</span>
+                  <span className="text-[10px] font-black text-on-surface-variant/60 uppercase tracking-widest mt-2">Upload Image</span>
+                  <input type="file" className="hidden" accept="image/*" onChange={handleImageChange} required={!isEdit} />
+                </label>
+                {preview && (
+                  <div className="w-24 h-24 rounded-xl bg-surface-container border border-outline-variant overflow-hidden p-2">
+                    <img src={preview} alt="Preview" className="w-full h-full object-contain" />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Description */}
-          <div className="space-y-4 group/input">
-            <label className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.4em] ml-2 group-focus-within/input:text-primary transition-colors font-label">Technical Intelligence</label>
+          <div className="space-y-3">
+            <label className="text-[9px] font-black text-on-surface-variant uppercase tracking-[0.3em] ml-2 font-label">Technical Intelligence</label>
             <textarea 
               name="description"
               value={formData.description}
               onChange={handleChange}
               required
-              rows="5"
-              placeholder="STRATEGIC SPECIFICATIONS AND UNIT HISTORY..."
-              className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-[28px] py-6 px-8 text-sm font-bold text-on-surface outline-none transition-all resize-none placeholder:text-on-surface-variant/30 font-body leading-relaxed"
+              rows="4"
+              placeholder="STRATEGIC SPECIFICATIONS..."
+              className="w-full bg-surface-container border border-outline-variant focus:border-primary-container focus:bg-white rounded-2xl py-4 px-6 text-sm font-bold outline-none transition-all resize-none leading-relaxed"
             ></textarea>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-12 pt-8">
-              {/* Featured Toggle */}
-              <label className="flex items-center gap-6 cursor-pointer group/toggle">
-                <div className="relative">
-                  <input 
-                    type="checkbox" 
-                    id="isFeatured"
-                    name="isFeatured"
-                    checked={formData.isFeatured}
-                    onChange={handleChange}
-                    className="sr-only peer"
-                  />
-                  <div className="w-16 h-8 bg-surface-container border border-outline-variant rounded-full peer-checked:bg-primary/20 peer-checked:border-primary transition-all shadow-inner"></div>
-                  <div className="absolute left-1.5 top-1.5 w-5 h-5 bg-on-surface-variant/30 rounded-full transition-all peer-checked:translate-x-8 peer-checked:bg-primary shadow-md"></div>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-black text-on-surface-variant uppercase tracking-[0.2em] group-hover/toggle:text-on-surface transition-colors font-label">Spotlight Allocation</span>
-                  <span className="text-[9px] font-medium text-on-surface-variant/40 uppercase tracking-widest mt-1">High priority deployment</span>
-                </div>
-              </label>
-
-              {/* Submit Button */}
-              <button 
-                type="submit" 
-                disabled={loading}
-                className={`w-full sm:w-auto bg-primary text-on-primary font-black text-[11px] uppercase tracking-[0.4em] py-6 px-16 rounded-2xl flex items-center justify-center gap-5 hover:bg-primary-container hover:text-on-primary-container transition-all shadow-xl active:scale-[0.97] group ${loading ? 'opacity-30 cursor-not-allowed' : ''}`}
-              >
-                {loading ? 'PROCESSING...' : 'CONFIRM COMMISSION'}
-                <span className="material-symbols-outlined text-[24px] group-hover:rotate-12 transition-transform">{loading ? 'sync' : 'verified'}</span>
-              </button>
-          </div>
+          <button 
+            type="submit" 
+            disabled={loading}
+            className={`w-full bg-primary text-on-primary font-black text-[10px] uppercase tracking-[0.3em] py-5 rounded-xl flex items-center justify-center gap-4 hover:bg-primary-container transition-all active:scale-[0.98] ${loading ? 'opacity-30' : ''}`}
+          >
+            {loading ? 'PROCESSING...' : isEdit ? 'CONFIRM UPDATE' : 'CONFIRM COMMISSION'}
+            <span className="material-symbols-outlined text-xl">{loading ? 'sync' : 'verified'}</span>
+          </button>
         </form>
       </div>
     </div>

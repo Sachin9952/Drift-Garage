@@ -6,72 +6,25 @@ import Shop from './pages/Shop';
 import ProductDetails from './pages/ProductDetails';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-import Wishlist from './pages/Wishlist';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
 import AdminDashboard from './pages/AdminDashboard';
-import MyOrders from './pages/MyOrders';
-import AccountSettings from './pages/AccountSettings';
-
-
-import { AuthProvider } from './context/AuthContext';
-import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* Auth pages without layout */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          
-          {/* Admin page without main layout (has its own sidebar) */}
-          <Route 
-            path="/admin/*" 
-            element={
-              <ProtectedRoute adminOnly={true}>
-                <AdminDashboard />
-              </ProtectedRoute>
-            } 
-          />
+    <Router>
+      <Routes>
+        {/* Admin Panel */}
+        <Route path="/admin/*" element={<AdminDashboard />} />
 
-          {/* Shop pages with layout */}
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/shop" element={<Shop />} />
-
-            <Route path="/product/:id" element={<ProductDetails />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route 
-              path="/checkout" 
-              element={
-                <ProtectedRoute>
-                  <Checkout />
-                </ProtectedRoute>
-              } 
-            />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route 
-              path="/my-orders" 
-              element={
-                <ProtectedRoute>
-                  <MyOrders />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/settings" 
-              element={
-                <ProtectedRoute>
-                  <AccountSettings />
-                </ProtectedRoute>
-              } 
-            />
-          </Route>
-        </Routes>
-      </Router>
-    </AuthProvider>
+        {/* Public Pages */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/shop" element={<Shop />} />
+          <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
