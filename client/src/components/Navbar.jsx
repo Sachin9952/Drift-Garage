@@ -102,14 +102,7 @@ const Navbar = () => {
                       <span className="material-symbols-outlined text-[18px] opacity-20">east</span>
                     </Link>
                   ))}
-                  <Link 
-                    to="/admin" 
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-between px-6 py-5 rounded-2xl bg-surface-container-lowest border border-outline-variant/40 text-[11px] font-black text-on-background uppercase tracking-[0.3em] font-label"
-                  >
-                    Admin Access
-                    <span className="material-symbols-outlined text-[18px] opacity-20">admin_panel_settings</span>
-                  </Link>
+                  {/* Removed Admin Access Link */}
                 </div>
               </div>
             </div>
